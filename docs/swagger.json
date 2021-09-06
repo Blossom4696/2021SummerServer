@@ -1,0 +1,831 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a server for sorting wrong problems.",
+        "title": "Swagger Example API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "159.138.3.194:8080",
+    "paths": {
+        "/app/campus/get_all_campus": {
+            "get": {
+                "description": "获取校区列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Campus"
+                ],
+                "summary": "校区列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Campus"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/exercise/delete_exercise/:id": {
+            "delete": {
+                "description": "删除习题数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exercise"
+                ],
+                "summary": "删除习题",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "习题id",
+                        "name": "Eid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Delete() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/exercise/get_all_exercise": {
+            "get": {
+                "description": "获取习题列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exercise"
+                ],
+                "summary": "习题列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Exercise"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/exercise/get_all_exercise_field": {
+            "get": {
+                "description": "获取习题列表年级、科目、类型、难度、单元的全部可能的值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exercise"
+                ],
+                "summary": "获取习题属性值",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Services.ExerciseField"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/exercise/get_exercise": {
+            "get": {
+                "description": "删除习题数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exercise"
+                ],
+                "summary": "删除习题",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "习题id",
+                        "name": "Eid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Query() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/exercise/get_sorted_exercise": {
+            "get": {
+                "description": "获取筛选后的习题列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exercise"
+                ],
+                "summary": "习题列表筛选",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "科目",
+                        "name": "subject",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "类型",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "单元",
+                        "name": "unit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "难度",
+                        "name": "difficulty",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "年级",
+                        "name": "grade",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Exercise"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/exercise/insert_exercise": {
+            "post": {
+                "description": "插入习题数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exercise"
+                ],
+                "summary": "插入习题",
+                "parameters": [
+                    {
+                        "description": "习题数据",
+                        "name": "ExerciseData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Models.Exercise"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Insert() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/exercise/update_exercise/:id": {
+            "put": {
+                "description": "更新习题数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Exercise"
+                ],
+                "summary": "更改习题",
+                "parameters": [
+                    {
+                        "description": "习题数据",
+                        "name": "EnameTxt",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Models.Exercise"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Update() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/file/get_audio": {
+            "get": {
+                "description": "下载服务端文件夹中的音频",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "获取音频",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文件路径",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/app/file/get_image": {
+            "get": {
+                "description": "下载服务端文件夹中的图片",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "获取图片",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文件路径",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/app/file/upload_file": {
+            "post": {
+                "description": "上传客户端发送的文件至本地服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "上传文件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文件本地路径",
+                        "name": "dirName",
+                        "in": "formData",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/app/student/login": {
+            "get": {
+                "description": "匹配学生密码，若登录成功则返回学生信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Student"
+                ],
+                "summary": "学生登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.Student"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/student/register": {
+            "post": {
+                "description": "根据发送的学生信息注册新用户",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Student"
+                ],
+                "summary": "学生注册",
+                "parameters": [
+                    {
+                        "description": "学生信息",
+                        "name": "StudentData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Models.Student"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Insert() success!\",\"data\":100001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/get_student_list": {
+            "get": {
+                "description": "获取监管校区内的学生信息列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "获取学生信息列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "教师id",
+                        "name": "Tid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Student"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/login": {
+            "get": {
+                "description": "匹配教师密码，若登录成功则返回教师信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.Teacher"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/test/login": {
+            "get": {
+                "description": "登录test",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Test"
+                ],
+                "summary": "登录测试",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/today/get_today_exercise": {
+            "get": {
+                "description": "获取今日习题列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TodayExercise"
+                ],
+                "summary": "今日习题列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生id",
+                        "name": "Sid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Exercise"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Controllers.Res": {
+            "type": "object",
+            "properties": {
+                "Code": {
+                    "type": "integer"
+                },
+                "Data": {
+                    "type": "object"
+                },
+                "Msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "Models.Campus": {
+            "type": "object",
+            "properties": {
+                "cid": {
+                    "type": "integer"
+                },
+                "cname": {
+                    "type": "string"
+                }
+            }
+        },
+        "Models.Exercise": {
+            "type": "object",
+            "properties": {
+                "eanswerPath": {
+                    "type": "string"
+                },
+                "eanswerTxt": {
+                    "type": "string"
+                },
+                "edescription": {
+                    "type": "string"
+                },
+                "edifficulty": {
+                    "type": "string"
+                },
+                "egrade": {
+                    "type": "string"
+                },
+                "eid": {
+                    "type": "integer"
+                },
+                "enamePath": {
+                    "type": "string"
+                },
+                "enameTxt": {
+                    "type": "string"
+                },
+                "esubject": {
+                    "type": "string"
+                },
+                "etitle": {
+                    "type": "string"
+                },
+                "etype": {
+                    "type": "string"
+                },
+                "eunit": {
+                    "type": "string"
+                }
+            }
+        },
+        "Models.Student": {
+            "type": "object",
+            "properties": {
+                "cid": {
+                    "type": "integer"
+                },
+                "cname": {
+                    "type": "string"
+                },
+                "sgrade": {
+                    "type": "string"
+                },
+                "sicon": {
+                    "type": "string"
+                },
+                "sid": {
+                    "type": "integer"
+                },
+                "sname": {
+                    "type": "string"
+                },
+                "snickname": {
+                    "type": "string"
+                },
+                "spassword": {
+                    "type": "string"
+                },
+                "sphone": {
+                    "type": "string"
+                }
+            }
+        },
+        "Models.Teacher": {
+            "type": "object",
+            "properties": {
+                "ticon": {
+                    "type": "string"
+                },
+                "tid": {
+                    "type": "integer"
+                },
+                "tname": {
+                    "type": "string"
+                },
+                "tnickname": {
+                    "type": "string"
+                },
+                "tpassword": {
+                    "type": "string"
+                },
+                "tphone": {
+                    "type": "string"
+                }
+            }
+        },
+        "Services.ExerciseField": {
+            "type": "object",
+            "properties": {
+                "edifficulty": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "egrade": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "esubject": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "etype": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "eunit": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

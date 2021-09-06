@@ -1,0 +1,1 @@
+nohup go run main.go > ./logs/demo.log 2>&1 &
