@@ -1,7 +1,6 @@
 package Services
 
 import (
-	"context"
 	"encoding/base64"
 	"encoding/json"
 	"strconv"
@@ -21,6 +20,10 @@ type Teacher struct {
 	Tphone         string `gorm:"column:Tphone"`
 	Ticon          string `gorm:"column:Ticon"`
 	Cnames         []string
+}
+
+type WPPrintData struct {
+	Wids []int64 `json:"Wids"`
 }
 
 // 教师登录
@@ -59,8 +62,7 @@ func (teacher Teacher) Login() (res Res, err error) {
 		rdsVal["userData"], _ = json.Marshal(result)
 		rdsVal["hashData"] = base64.StdEncoding.EncodeToString(hashData)
 
-		var ctx = context.Background()
-		rdsKey, err := Models.PutJSON(ctx, rdsVal, 3*time.Hour)
+		rdsKey, err := Models.PutJSON(rdsVal, 3*time.Hour)
 		if err != nil {
 			return Res{
 				Code: -1,

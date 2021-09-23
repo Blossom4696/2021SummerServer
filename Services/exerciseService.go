@@ -92,7 +92,7 @@ func (exercise *Exercise) Query() (result []Models.Exercise, err error) {
 func (exercise *Exercise) QueryByEid() (result Models.Exercise, err error) {
 	var exerciseModel Models.Exercise
 
-	result, err = exerciseModel.QueryByEId(exercise.Eid)
+	result, err = exerciseModel.QueryByEid(exercise.Eid)
 
 	return
 }

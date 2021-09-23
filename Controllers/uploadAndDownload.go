@@ -82,3 +82,16 @@ func AudioDownload(c *gin.Context) {
 	fileName := path + c.Query("name")
 	c.File(fileName)
 }
+
+// @Summary 获取pdf
+// @Description 下载服务端文件夹中的pdf
+// @Tags File
+// @Accept json
+// @Produce  json
+// @Param name query string true "文件路径"
+// @Router /app/file/get_pdf [get]
+func PdfDownload(c *gin.Context) {
+	path := "/root/2021Summer/pdfs/"
+	fileName := path + c.Query("name")
+	c.File(fileName)
+}

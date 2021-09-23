@@ -1,7 +1,6 @@
 package Models
 
 import (
-	"context"
 	"errors"
 	"time"
 
@@ -9,7 +8,7 @@ import (
 	"github.com/bigby/project/Utils"
 )
 
-func PutJSON(context context.Context, val map[string]interface{}, t time.Duration) (resKey string, err error) {
+func PutJSON(val map[string]interface{}, t time.Duration) (resKey string, err error) {
 	key, err := Utils.NewKey(16)
 
 	if err != nil {
@@ -17,19 +16,19 @@ func PutJSON(context context.Context, val map[string]interface{}, t time.Duratio
 	}
 
 	resKey = string(key[:])
-	err = Database.Redisdb.HMSet(context, resKey, val).Err()
+	err = Database.Redisdb.HMSet(resKey, val).Err()
 
 	if err != nil {
 		return
 	}
 
-	_, err = Database.Redisdb.Expire(context, resKey, t).Result()
+	_, err = Database.Redisdb.Expire(resKey, t).Result()
 
 	return
 }
 
-func GetJSON(context context.Context, key string) (val map[string]string, err error) {
-	exist, err := Database.Redisdb.Exists(context, key).Result()
+func GetJSON(key string) (val map[string]string, err error) {
+	exist, err := Database.Redisdb.Exists(key).Result()
 	if err != nil {
 		return
 	}
@@ -39,7 +38,7 @@ func GetJSON(context context.Context, key string) (val map[string]string, err er
 		return
 	}
 
-	val, err = Database.Redisdb.HGetAll(context, key).Result()
+	val, err = Database.Redisdb.HGetAll(key).Result()
 
 	return
 }

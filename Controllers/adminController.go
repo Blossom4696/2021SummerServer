@@ -483,3 +483,81 @@ func CampusDeleteFromAdmin(c *gin.Context) {
 		Data: result.Cid,
 	})
 }
+
+// @Summary 预约家教列表
+// @Description 获取预约家教列表
+// @Tags OrderTeacher
+// @Accept json
+// @Produce  json
+// @Success 200 {object} Res{data=[]Models.OrderTeacher}
+// @Router /app/order/get_order_teacher_list [get]
+func OrderTeacherListQueryByAdmin(c *gin.Context) {
+	var otService Services.OrderTeacher
+
+	result, err := otService.QueryListByDate()
+
+	if err != nil {
+		c.JSON(http.StatusOK, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	if len(result) == 0 {
+		c.JSON(http.StatusOK, Res{
+			Code: 2,
+			Msg:  "No Order Teacher!",
+			Data: result,
+		})
+	} else {
+		c.JSON(http.StatusOK, Res{
+			Code: 1,
+			Msg:  "Query Success!",
+			Data: result,
+		})
+	}
+
+}
+
+// @Summary 预约家教信息
+// @Description 获取某个预约家教信息
+// @Tags OrderTeacher
+// @Accept json
+// @Produce  json
+// @Success 200 {object} Res{data=Models.OrderTeacher}
+// @Router /app/order/get_order_teacher [get]
+func OrderTeacherQueryByAdmin(c *gin.Context) {
+	var otService Services.OrderTeacher
+	var err error
+
+	otService.OTid, err = strconv.ParseInt(c.Query("OTid"), 10, 64)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := otService.QueryByOTid(otService.OTid)
+
+	if err != nil {
+		c.JSON(http.StatusOK, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, Res{
+		Code: 1,
+		Msg:  "Query Success!",
+		Data: result,
+	})
+
+}

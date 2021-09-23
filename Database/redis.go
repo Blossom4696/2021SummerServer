@@ -1,7 +1,6 @@
 package Database
 
 import (
-	"context"
 	"fmt"
 
 	"github.com/go-redis/redis"
@@ -15,8 +14,7 @@ func InitRedis() {
 		Password: "123456",
 		DB:       0,
 	})
-	var ctx = context.Background()
-	_, err := Redisdb.Ping(ctx).Result()
+	_, err := Redisdb.Ping().Result()
 	if err != nil {
 		fmt.Println("Con Redis Fail", err)
 	}

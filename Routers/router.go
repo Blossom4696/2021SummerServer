@@ -39,12 +39,16 @@ func InitRouter() *gin.Engine {
 	v2.GET("/get_student", Controllers.StudentQueryFromStudent)
 	v2.POST("/register", Controllers.StudentRegister)
 	v2.POST("/update_student", Controllers.StudentUpdateFromStudent)
+	v2.POST("/insert_order_teacher", Controllers.OrderTeacherInsertFromStudent)
+	v2.GET("/get_learn_situation_list", Controllers.LearnSituationQueryFromStudent)
+	v2.POST("/insert_ask_question", Controllers.AskQuestionInsertFromStudent)
 
 	// 文件路由组
 	v3 := router.Group("app/file")
 
 	v3.GET("/get_image", Controllers.ImageDownload)
 	v3.GET("/get_audio", Controllers.AudioDownload)
+	v3.GET("/get_pdf", Controllers.PdfDownload)
 	v3.POST("/upload_file", Controllers.FileUpload)
 
 	// 校区路由组
@@ -61,6 +65,14 @@ func InitRouter() *gin.Engine {
 	v5.POST("/insert_today_exercise", Controllers.TodayExerciseInsertFromTeacher)
 	v5.GET("/get_teacher", Controllers.TeacherQueryFromTeacher)
 	v5.POST("/update_teacher", Controllers.TeacherUpdateFromTeacher)
+	v5.GET("/get_learn_situation_list", Controllers.LearnSituationQueryFromTeacher)
+	v5.POST("/insert_learn_situation", Controllers.LearnSituationInsertFromTeacher)
+	v5.PUT("/update_learn_situation", Controllers.LearnSituationUpdateFromTeacher)
+	v5.DELETE("/delete_learn_situation/:id", Controllers.LearnSituationDeleteFromTeacher)
+	v5.GET("/get_ask_question_list", Controllers.AskQuestionListQueryFromTeacher)
+	v5.GET("/get_ask_question", Controllers.AskQuestionQueryFromTeacher)
+	v5.GET("/generate_wrong_problem_pdf", Controllers.GenerateWPPdfFromTeacher)
+	v5.GET("/generate_exercise_pdf", Controllers.GenerateExercisePdfFromTeacher)
 
 	// 今日习题路由组
 	v6 := router.Group("/app/today")
@@ -112,6 +124,8 @@ func InitRouter() *gin.Engine {
 	vadmin.POST("/insert_teacher", Controllers.TeacherInsertFromAdmin)
 	vadmin.POST("/update_student", Controllers.StudentUpdateFromAdmin)
 	vadmin.POST("/update_teacher", Controllers.TeacherUpdateFromAdmin)
+	vadmin.GET("/get_order_teacher_list", Controllers.OrderTeacherListQueryByAdmin)
+	vadmin.GET("/get_order_teacher", Controllers.OrderTeacherQueryByAdmin)
 
 	// 添加swagger的路由
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

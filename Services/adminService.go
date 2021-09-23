@@ -1,7 +1,6 @@
 package Services
 
 import (
-	"context"
 	"encoding/base64"
 	"encoding/json"
 	"strconv"
@@ -54,8 +53,7 @@ func (admin Admin) Login() (res Res, err error) {
 		rdsVal["userData"], _ = json.Marshal(result)
 		rdsVal["hashData"] = base64.StdEncoding.EncodeToString(hashData)
 
-		var ctx = context.Background()
-		rdsKey, err := Models.PutJSON(ctx, rdsVal, 3*time.Hour)
+		rdsKey, err := Models.PutJSON(rdsVal, 3*time.Hour)
 		if err != nil {
 			return Res{
 				Code: -1,

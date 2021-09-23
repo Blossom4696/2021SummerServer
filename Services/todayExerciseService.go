@@ -33,7 +33,7 @@ func (te *TodayExercise) Query() (result []map[string]interface{}, err error) {
 
 	for i := 0; i < len(teArray); i++ {
 		resultMap := make(map[string]interface{})
-		exercise, err = exerciseModel.QueryByEId(teArray[i].Eid)
+		exercise, err = exerciseModel.QueryByEid(teArray[i].Eid)
 
 		resultMap["Exercise"] = exercise
 
@@ -62,7 +62,7 @@ func (te *TodayExercise) Judge(answerMap map[string]string) (result []map[string
 
 	for id, answer := range answerMap {
 		Eid, _ := strconv.ParseInt(id, 10, 64)
-		exercise, _ := exerciseModel.QueryByEId(Eid)
+		exercise, _ := exerciseModel.QueryByEid(Eid)
 
 		resultMap := make(map[string]string)
 		resultMap["answerTxt"] = exercise.EanswerTxt

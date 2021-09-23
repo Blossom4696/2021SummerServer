@@ -92,7 +92,7 @@ func (exercise *Exercise) Query() (exercises []Exercise, err error) {
 }
 
 //按Eid查
-func (exercise *Exercise) QueryByEId(Eid int64) (result Exercise, err error) {
+func (exercise *Exercise) QueryByEid(Eid int64) (result Exercise, err error) {
 
 	if err = orm.Eloquent.Table("EXERCISE").Where("Eid = ?", Eid).First(&result).Error; err != nil {
 		return

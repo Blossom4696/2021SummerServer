@@ -1,7 +1,6 @@
 package Middlewares
 
 import (
-	"context"
 	"encoding/base64"
 	"net/http"
 	"strconv"
@@ -69,8 +68,7 @@ func JWT(userType Config.UserType) gin.HandlerFunc {
 		}
 
 		// 从redis数据库中拿到aes加密的hashData、用户数据
-		var ctx = context.Background()
-		rdsData, err := Models.GetJSON(ctx, string(tokenRdsKey))
+		rdsData, err := Models.GetJSON(string(tokenRdsKey))
 		// 如果redis中存储过期
 		if err != nil {
 			resErr(c, err.Error())
