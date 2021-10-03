@@ -12,9 +12,10 @@ import (
 )
 
 type Admin struct {
-	Aid       int64  `gorm:"primary_key;column:Aid;AUTO_INCREMENT"`
-	Aname     string `gorm:"column:Aname"`
-	Apassword string `gorm:"column:Apassword"`
+	Aid            int64  `gorm:"primary_key;column:Aid;AUTO_INCREMENT"`
+	Aname          string `gorm:"column:Aname"`
+	Apassword      string `gorm:"column:Apassword"`
+	ApasswordAgain string
 }
 
 // 管理员登录
@@ -28,8 +29,8 @@ func (admin Admin) Login() (res Res, err error) {
 
 	if err != nil {
 		return Res{
-			Code: -1,
-			Msg:  "Query error!",
+			Code: 2,
+			Msg:  "Name not exist!",
 			Data: nil,
 		}, err
 	}
@@ -81,7 +82,7 @@ func (admin Admin) Login() (res Res, err error) {
 	} else {
 		return Res{
 			Code: 2,
-			Msg:  "Admin login failed!",
+			Msg:  "Password not correct!",
 			Data: nil,
 		}, err
 	}
@@ -250,4 +251,82 @@ func (admin Admin) QueryTeacherSortedList(sortName string, sortDir string) (resu
 	}
 
 	return
+}
+
+// 获取管理员列表
+func (admin Admin) QueryAdminList() (result []Models.Admin, err error) {
+	var adminModel Models.Admin
+
+	result, err = adminModel.QueryAll()
+
+	return
+}
+
+// 获取一个管理员信息
+func (admin Admin) QueryAdmin(Aid int64) (result Models.Admin, err error) {
+	var adminModel Models.Admin
+
+	result, err = adminModel.QueryByAid(Aid)
+
+	return
+}
+
+// 增加管理员
+func (admin Admin) Insert() (res Res, err error) {
+	if admin.Apassword != admin.ApasswordAgain {
+		return Res{
+			Code: 2,
+			Msg:  "Password not consistent!",
+			Data: nil,
+		}, err
+	}
+
+	var adminModel Models.Admin
+
+	adminModel.Aname = admin.Aname
+	adminModel.Apassword = admin.Apassword
+
+	result, err := adminModel.QueryAll()
+
+	for _, x := range result {
+		if x.Aname == adminModel.Aname {
+			return Res{
+				Code: 2,
+				Msg:  "Username existed!",
+				Data: nil,
+			}, err
+		}
+	}
+
+	Aid, err := adminModel.Insert()
+
+	return Res{
+		Code: 1,
+		Msg:  "Register Success!",
+		Data: Aid,
+	}, err
+}
+
+// 更改管理员
+func (admin Admin) Update() (res Res, err error) {
+	if admin.Apassword != admin.ApasswordAgain {
+		return Res{
+			Code: 2,
+			Msg:  "Password not consistent!",
+			Data: nil,
+		}, err
+	}
+
+	var adminModel Models.Admin
+
+	adminModel.Aname = admin.Aname
+	adminModel.Apassword = admin.Apassword
+
+	result, err := adminModel.Update(admin.Aid)
+
+	return Res{
+		Code: 1,
+		Msg:  "Register Success!",
+		Data: result,
+	}, err
 }

@@ -61,7 +61,7 @@ func (admin *Admin) QueryAll() (admins []Admin, err error) {
 }
 
 //按Tid查
-func (admin *Admin) QueryById(Aid int64) (result Admin, err error) {
+func (admin *Admin) QueryByAid(Aid int64) (result Admin, err error) {
 
 	if err = orm.Eloquent.Table("ADMIN").Where("Aid = ?", Aid).First(&result).Error; err != nil {
 		return

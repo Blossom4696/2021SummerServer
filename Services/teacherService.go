@@ -17,6 +17,7 @@ type Teacher struct {
 	Tnickname      string `gorm:"column:Tnickname"`
 	Tpassword      string `gorm:"column:Tpassword"`
 	TpasswordAgain string
+	ToldPassword   string
 	Tphone         string `gorm:"column:Tphone"`
 	Ticon          string `gorm:"column:Ticon"`
 	Cnames         []string
@@ -37,8 +38,8 @@ func (teacher Teacher) Login() (res Res, err error) {
 
 	if err != nil {
 		return Res{
-			Code: -1,
-			Msg:  "Query error!",
+			Code: 2,
+			Msg:  "Name not exist!",
 			Data: nil,
 		}, err
 	}
@@ -90,7 +91,7 @@ func (teacher Teacher) Login() (res Res, err error) {
 	} else {
 		return Res{
 			Code: 2,
-			Msg:  "Teacher login failed!",
+			Msg:  "Password not correct!",
 			Data: nil,
 		}, err
 	}
@@ -310,7 +311,7 @@ func (teacher Teacher) Search(searchString string) (result []Teacher, err error)
 	return
 }
 
-// 编辑教师信息
+// 编辑教师信息(From Admin)
 func (teacher *Teacher) Update(Tid int64) (result Res, err error) {
 	var teacherModel Models.Teacher
 
@@ -334,6 +335,7 @@ func (teacher *Teacher) Update(Tid int64) (result Res, err error) {
 	resData["insert"] = make([]Models.TeachArea, 0)
 	// 增加的
 	for i := 0; i < len(teacher.Cnames); i++ {
+
 		taModel.Cid, err = strconv.ParseInt(teacher.Cnames[i], 10, 64)
 		if err != nil {
 			return
@@ -360,14 +362,20 @@ func (teacher *Teacher) Update(Tid int64) (result Res, err error) {
 	resData["delete"] = make([]Models.TeachArea, 0)
 	// 删除的
 	for i := 0; i < len(tas); i++ {
+		var taModel Models.TeachArea
 		hasItem := false
 		for j := 0; j < len(teacher.Cnames); j++ {
-			taModel.Cid, err = strconv.ParseInt(teacher.Cnames[j], 10, 64)
+			var err error
+			tmpCid, err := strconv.ParseInt(teacher.Cnames[j], 10, 64)
 			if err != nil {
-				return
+				return Res{
+					Code: -1,
+					Msg:  err.Error(),
+					Data: nil,
+				}, err
 			}
 
-			if taModel.Cid == tas[i].Cid {
+			if tmpCid == tas[i].Cid {
 				hasItem = true
 				break
 			}
@@ -395,6 +403,66 @@ func (teacher *Teacher) UpdateFromTeacher(Tid int64) (result Res, err error) {
 	teacherModel.Tnickname = teacher.Tnickname
 	teacherModel.Tphone = teacher.Tphone
 	teacherModel.Ticon = teacher.Ticon
+
+	resTeacher, err := teacherModel.Update(teacherModel.Tid)
+
+	return Res{
+		Code: 1,
+		Msg:  "Update Success!",
+		Data: resTeacher,
+	}, err
+}
+
+func (teacher *Teacher) Delete(Tid int64) (result Models.Teacher, err error) {
+	var teacherModel Models.Teacher
+
+	teacherModel.Tid = teacher.Tid
+
+	result, err = teacherModel.Delete(Tid)
+
+	return
+}
+
+// 修改教师密码
+func (teacher *Teacher) UpdatePasswordFromTeacher(Tid int64) (result Res, err error) {
+	var teacherModel, tmpTeacher Models.Teacher
+
+	teacherModel.Tid = Tid
+
+	tmpTeacher, err = teacherModel.QueryByTid(Tid)
+	if teacher.ToldPassword != tmpTeacher.Tpassword {
+		return Res{
+			Code: 2,
+			Msg:  "Password not correct!",
+			Data: nil,
+		}, err
+	}
+
+	if teacher.Tpassword == "" {
+		return Res{
+			Code: 2,
+			Msg:  "Password is empty!",
+			Data: nil,
+		}, err
+	}
+
+	if teacher.Tpassword != teacher.TpasswordAgain {
+		return Res{
+			Code: 2,
+			Msg:  "Password not consistent!",
+			Data: nil,
+		}, err
+	}
+
+	if teacher.ToldPassword == teacher.Tpassword {
+		return Res{
+			Code: 2,
+			Msg:  "The two passwords are correct!",
+			Data: nil,
+		}, err
+	}
+
+	teacherModel.Tpassword = teacher.Tpassword
 
 	resTeacher, err := teacherModel.Update(teacherModel.Tid)
 

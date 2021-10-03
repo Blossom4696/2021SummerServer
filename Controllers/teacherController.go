@@ -238,6 +238,40 @@ func TeacherUpdateFromTeacher(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
+// @Summary 编辑教师
+// @Description 编辑一个教师信息
+// @Tags Teacher
+// @Accept json
+// @Produce  json
+// @Param teacherData formData Services.Teacher true
+// @Success 200 {object} Res{data=Services.Teacher}
+// @Router /app/teacher/update_password [PUT]
+func TeacherPasswordUpdateFromTeacher(c *gin.Context) {
+	var teacherService Services.Teacher
+
+	err := c.ShouldBindJSON(&teacherService)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := teacherService.UpdatePasswordFromTeacher(teacherService.Tid)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, result)
+}
+
 // @Summary 教师获取学生学情列表
 // @Description 教师获取监管校区内的学生学情列表
 // @Tags Teacher
@@ -416,7 +450,10 @@ func AskQuestionListQueryFromTeacher(c *gin.Context) {
 		return
 	}
 
-	result, err := aqService.QueryFromTeacher(teacherService.Tid)
+	unresolved := c.Query("unresolved")
+	date := c.Query("date")
+
+	result, err := aqService.QueryFromTeacher(teacherService.Tid, unresolved, date)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"code":    -1,
@@ -455,6 +492,42 @@ func AskQuestionQueryFromTeacher(c *gin.Context) {
 	}
 
 	result, err := aqService.QueryByAQid(aqService.AQid)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "Query() error!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, Res{
+		Code: 1,
+		Msg:  "Query Success!",
+		Data: result,
+	})
+}
+
+// @Summary 教师更改学生提问信息
+// @Description 教师更改监管校区内的学生提问信息
+// @Tags Teacher
+// @Accept json
+// @Produce  json
+// @Success 200 {object} Res{data=Models.AskQuestion}
+// @Router /app/teacher/update_ask_question [post]
+func AskQuestionUpdateFromTeacher(c *gin.Context) {
+	var aqService Services.AskQuestion
+
+	err := c.ShouldBindJSON(&aqService)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := aqService.Update()
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"code":    -1,

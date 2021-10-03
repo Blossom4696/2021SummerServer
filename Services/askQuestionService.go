@@ -8,13 +8,14 @@ import (
 )
 
 type AskQuestion struct {
-	AQid      int64     `gorm:"primary_key;column:AQid;AUTO_INCREMENT"`
-	Sid       int64     `gorm:"column:Sid"`
-	Eid       int64     `gorm:"column:Eid"`
-	AQtime    time.Time `gorm:"column:AQtime"`
-	AQremark  string    `gorm:"column:AQremark"`
-	Snickname string
-	Etitle    string
+	AQid       int64     `gorm:"primary_key;column:AQid;AUTO_INCREMENT"`
+	Sid        int64     `gorm:"column:Sid"`
+	Eid        int64     `gorm:"column:Eid"`
+	AQtime     time.Time `gorm:"column:AQtime"`
+	AQremark   string    `gorm:"column:AQremark"`
+	AQisSolved int64     `gorm:"column:AQisSolved"`
+	Snickname  string
+	Etitle     string
 }
 
 func (aq *AskQuestion) Insert() (AQid int64, err error) {
@@ -24,8 +25,25 @@ func (aq *AskQuestion) Insert() (AQid int64, err error) {
 	aqModel.Eid = aq.Eid
 	aqModel.AQtime = aq.AQtime
 	aqModel.AQremark = aq.AQremark
+	aqModel.AQisSolved = aq.AQisSolved
 
 	AQid, err = aqModel.Insert()
+
+	return
+
+}
+
+func (aq *AskQuestion) Update() (result Models.AskQuestion, err error) {
+	var aqModel Models.AskQuestion
+
+	aqModel.AQid = aq.AQid
+	aqModel.Sid = aq.Sid
+	aqModel.Eid = aq.Eid
+	aqModel.AQtime = aq.AQtime
+	aqModel.AQremark = aq.AQremark
+	aqModel.AQisSolved = aq.AQisSolved
+
+	result, err = aqModel.UpdateByAQid(aqModel.AQid)
 
 	return
 
@@ -48,10 +66,16 @@ func (aq *AskQuestion) QueryByAQid(AQid int64) (result AskQuestion, err error) {
 	return
 }
 
-func (aq *AskQuestion) QueryFromTeacher(Tid int64) (result []AskQuestion, err error) {
+func (aq *AskQuestion) QueryFromTeacher(Tid int64, unresolved string, date string) (result []AskQuestion, err error) {
 	var aqModel Models.AskQuestion
 
-	tmpAQ, err := aqModel.QueryFromTeacher(Tid)
+	var tmpAQ []Models.AskQuestion
+
+	if unresolved == "1" {
+		tmpAQ, err = aqModel.QueryFromTeacher(Tid, date)
+	} else if unresolved == "0" {
+		tmpAQ, err = aqModel.QueryUnresolvedFromTeacher(Tid, date)
+	}
 
 	result = make([]AskQuestion, len(tmpAQ))
 	// 把 askquestion model 转为 askquestion service

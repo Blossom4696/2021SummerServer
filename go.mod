@@ -13,6 +13,5 @@ require (
 	github.com/signintech/gopdf v0.10.1
 	github.com/swaggo/gin-swagger v1.3.1
 	github.com/swaggo/swag v1.7.1
-	github.com/tiechui1994/gopdf v0.0.0-20210906105035-7cce3d921a5a
-	golang.org/x/image v0.0.0-20210628002857-a66eb6448b8d
+	github.com/unrolled/secure v1.0.9
 )

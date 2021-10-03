@@ -179,6 +179,45 @@ func StudentUpdateFromAdmin(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
+// @Summary 删除学生
+// @Description 删除学生数据
+// @Tags Admin
+// @Accept json
+// @Produce  json
+// @Param Sid query string true "学生id"
+// @Success 200 {object} Res {"code":200,"msg":"Delete() success!","data":500001}
+// @Router /app/student/delete_student/:id [DELETE]
+func StudentDeleteFromAdmin(c *gin.Context) {
+	var studentService Services.Student
+
+	var err error
+
+	studentService.Sid, err = strconv.ParseInt(c.Query("Sid"), 10, 64)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := studentService.Delete(studentService.Sid)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "Delete() error!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, Res{
+		Code: 1,
+		Msg:  "Delete Success!",
+		Data: result.Sid,
+	})
+}
+
 // @Summary 管理员获取教师信息列表
 // @Description 管理员获取所有教师信息列表
 // @Tags Admin
@@ -346,6 +385,45 @@ func TeacherUpdateFromAdmin(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
+// @Summary 删除教师
+// @Description 删除教师数据
+// @Tags Admin
+// @Accept json
+// @Produce  json
+// @Param Tid query string true "教师id"
+// @Success 200 {object} Res {"code":200,"msg":"Delete() success!","data":500001}
+// @Router /app/teacher/delete_teacher/:id [DELETE]
+func TeacherDeleteFromAdmin(c *gin.Context) {
+	var teacherService Services.Teacher
+
+	var err error
+
+	teacherService.Tid, err = strconv.ParseInt(c.Query("Tid"), 10, 64)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := teacherService.Delete(teacherService.Tid)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "Delete() error!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, Res{
+		Code: 1,
+		Msg:  "Delete Success!",
+		Data: result.Tid,
+	})
+}
+
 // @Summary 管理员获取校区信息列表
 // @Description 管理员获取所有校区信息列表
 // @Tags Admin
@@ -394,17 +472,14 @@ func CampusInsertFromAdmin(c *gin.Context) {
 
 	result, err := campusService.Insert()
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"code":    -1,
-			"message": "Insert() error!",
+		c.JSON(http.StatusOK, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
 		})
 		return
 	}
-	c.JSON(http.StatusOK, Res{
-		Code: 1,
-		Msg:  "Insert Success!",
-		Data: result,
-	})
+	c.JSON(http.StatusOK, result)
 }
 
 // @Summary 管理员编辑校区信息
@@ -452,7 +527,7 @@ func CampusUpdateFromAdmin(c *gin.Context) {
 // @Produce  json
 // @Param Cid query string true "校区id"
 // @Success 200 {object} Res {"code":200,"msg":"Delete() success!","data":500001}
-// @Router /app/exercise/delete_exercise/:id [DELETE]
+// @Router /app/campus/delete_campus/:id [DELETE]
 func CampusDeleteFromAdmin(c *gin.Context) {
 	var campusService Services.Campus
 
@@ -491,7 +566,7 @@ func CampusDeleteFromAdmin(c *gin.Context) {
 // @Produce  json
 // @Success 200 {object} Res{data=[]Models.OrderTeacher}
 // @Router /app/order/get_order_teacher_list [get]
-func OrderTeacherListQueryByAdmin(c *gin.Context) {
+func OrderTeacherListQueryFromAdmin(c *gin.Context) {
 	var otService Services.OrderTeacher
 
 	result, err := otService.QueryListByDate()
@@ -528,7 +603,7 @@ func OrderTeacherListQueryByAdmin(c *gin.Context) {
 // @Produce  json
 // @Success 200 {object} Res{data=Models.OrderTeacher}
 // @Router /app/order/get_order_teacher [get]
-func OrderTeacherQueryByAdmin(c *gin.Context) {
+func OrderTeacherQueryFromAdmin(c *gin.Context) {
 	var otService Services.OrderTeacher
 	var err error
 
@@ -560,4 +635,132 @@ func OrderTeacherQueryByAdmin(c *gin.Context) {
 		Data: result,
 	})
 
+}
+
+// @Summary 管理员获取管理员列表
+// @Description 管理员获取管理员列表
+// @Tags Admin
+// @Accept json
+// @Produce  json
+// @Success 200 {object} Res
+// @Router /app/admin/get_admin_list [GET]
+func AdminListQueryFromAdmin(c *gin.Context) {
+	var adminService Services.Admin
+
+	result, err := adminService.QueryAdminList()
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "Query() error!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, Res{
+		Code: 1,
+		Msg:  "Query Success!",
+		Data: result,
+	})
+}
+
+// @Summary 管理员获取管理员
+// @Description 管理员获取一个管理员信息
+// @Tags Admin
+// @Accept json
+// @Produce  json
+// @Success 200 {object} Res
+// @Router /app/admin/get_admin [GET]
+func AdminQueryFromAdmin(c *gin.Context) {
+	var adminService Services.Admin
+
+	var err error
+	adminService.Aid, err = strconv.ParseInt(c.Query("Aid"), 10, 64)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := adminService.QueryAdmin(adminService.Aid)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "Query() error!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, Res{
+		Code: 1,
+		Msg:  "Query Success!",
+		Data: result,
+	})
+}
+
+// @Summary 管理员增加管理员
+// @Description 管理员增加管理员
+// @Tags Admin
+// @Accept json
+// @Produce  json
+// @Success 200 {object} Res
+// @Router /app/admin/insert_admin [POST]
+func AdminInsertFromAdmin(c *gin.Context) {
+	var adminService Services.Admin
+
+	err := c.ShouldBindJSON(&adminService)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := adminService.Insert()
+	if err != nil {
+		c.JSON(http.StatusOK, Res{
+			Code: -1,
+			Msg:  "Insert Failed!: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, result)
+}
+
+// @Summary 管理员编辑管理员
+// @Description 管理员编辑管理员信息
+// @Tags Admin
+// @Accept json
+// @Produce  json
+// @Success 200 {object} Res
+// @Router /app/admin/update_admin [PUT]
+func AdminUpdateFromAdmin(c *gin.Context) {
+	var adminService Services.Admin
+
+	err := c.ShouldBindJSON(&adminService)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := adminService.Update()
+	if err != nil {
+		c.JSON(http.StatusOK, Res{
+			Code: -1,
+			Msg:  "Update Failed!: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, result)
 }

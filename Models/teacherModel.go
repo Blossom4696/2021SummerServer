@@ -113,7 +113,7 @@ func (teacher *Teacher) QueryStudentByTid(Tid int64) (result []Student, err erro
 func (teacher *Teacher) QueryStudentByTidSorted(Tid int64, searchString string, searchField string, sortName string, sortDir string) (result []Student, err error) {
 	if sortName == "Cname" {
 		sub := orm.Eloquent.Table("TEACHAREA").Select("Cid").Where("Tid = ?", Tid).SubQuery()
-		query := orm.Eloquent.Table("STUDENT").Where("Cid in ? and "+searchField+" LIKE ?", sub, "%"+searchString+"%").Order(sortName + " " + sortDir)
+		query := orm.Eloquent.Table("STUDENT").Where("STUDENT.Cid in ? and "+searchField+" LIKE ?", sub, "%"+searchString+"%").Order(sortName + " " + sortDir)
 		err = query.Joins("JOIN CAMPUS on STUDENT.Cid = CAMPUS.Cid").Select("STUDENT.*, CAMPUS.Cname").Order(sortName + " " + sortDir).Find(&result).Error
 	} else {
 		sub := orm.Eloquent.Table("TEACHAREA").Select("Cid").Where("Tid = ?", Tid).SubQuery()

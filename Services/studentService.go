@@ -17,6 +17,7 @@ type Student struct {
 	Snickname      string `gorm:"column:Snickname"`
 	Spassword      string `gorm:"column:Spassword"`
 	SpasswordAgain string
+	SoldPassword   string
 	Sphone         string `gorm:"column:Sphone"`
 	Sicon          string `gorm:"column:Sicon"`
 	Sgrade         int64  `gorm:"column:Sgrade"`
@@ -44,8 +45,8 @@ func (student Student) Login() (res Res, err error) {
 
 	if err != nil {
 		return Res{
-			Code: -1,
-			Msg:  "Query error!",
+			Code: 2,
+			Msg:  "Name not exist!",
 			Data: nil,
 		}, err
 	}
@@ -124,7 +125,7 @@ func (student Student) Login() (res Res, err error) {
 	} else {
 		return Res{
 			Code: 2,
-			Msg:  "Student login failed!",
+			Msg:  "Password not correct!",
 			Data: nil,
 		}, err
 	}
@@ -253,6 +254,67 @@ func (student *Student) Update(Sid int64) (result Res, err error) {
 	if err != nil {
 		return
 	}
+
+	return Res{
+		Code: 1,
+		Msg:  "Update Success!",
+		Data: resStudent,
+	}, err
+}
+
+// 删除学生信息
+func (student *Student) Delete(Sid int64) (result Models.Student, err error) {
+	var studentModel Models.Student
+
+	studentModel.Sid = student.Sid
+
+	result, err = studentModel.Delete(Sid)
+
+	return
+}
+
+// 修改学生密码
+func (student *Student) UpdatePasswordFromStudent(Sid int64) (result Res, err error) {
+	var studentModel, tmpStudent Models.Student
+
+	studentModel.Sid = Sid
+
+	tmpStudent, err = studentModel.QueryBySid(Sid)
+	if student.SoldPassword != tmpStudent.Spassword {
+		return Res{
+			Code: 2,
+			Msg:  "Password not correct!",
+			Data: nil,
+		}, err
+	}
+
+	if student.Spassword == "" {
+		return Res{
+			Code: 2,
+			Msg:  "Password is empty!",
+			Data: nil,
+		}, err
+	}
+
+	if student.Spassword != student.SpasswordAgain {
+		return Res{
+			Code: 2,
+			Msg:  "Password not consistent!",
+			Data: nil,
+		}, err
+	}
+
+	if student.SoldPassword == student.Spassword {
+		return Res{
+			Code: 2,
+			Msg:  "The two passwords are correct!",
+			Data: nil,
+		}, err
+	}
+
+	studentModel.Spassword = student.Spassword
+
+	resStudent, err := studentModel.Update(studentModel.Sid)
 
 	return Res{
 		Code: 1,

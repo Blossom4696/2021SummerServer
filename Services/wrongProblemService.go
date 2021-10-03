@@ -52,6 +52,32 @@ func (wp *WrongProblem) Insert() (Wid int64, err error) {
 
 }
 
+func (wp *WrongProblem) Update(Wid int64) (result Models.WrongProblem, err error) {
+	var wpModel Models.WrongProblem
+
+	wpModel.Wid = wp.Wid
+	wpModel.Wtitle = wp.Wtitle
+	wpModel.Wdescription = wp.Wdescription
+	wpModel.WproblemTxt = wp.WproblemTxt
+	wpModel.WproblemPath = wp.WproblemPath
+	wpModel.WanswerTxt = wp.WanswerTxt
+	wpModel.WanswerPath = wp.WanswerPath
+	wpModel.WmyAnswerTxt = wp.WmyAnswerTxt
+	wpModel.WmyAnswerPath = wp.WmyAnswerPath
+	wpModel.Wgrade = wp.Wgrade
+	wpModel.Wsubject = wp.Wsubject
+	wpModel.Wtype = wp.Wtype
+	wpModel.Wdifficulty = wp.Wdifficulty
+	wpModel.Wunit = wp.Wunit
+	wpModel.Sid = wp.Sid
+	wpModel.WcreateTime = time.Now()
+
+	result, err = wpModel.Update(wpModel.Wid)
+
+	return
+
+}
+
 func (wp *WrongProblem) Delete(Wid int64) (result Models.WrongProblem, err error) {
 	var wpModel Models.WrongProblem
 

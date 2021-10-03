@@ -7,11 +7,12 @@ import (
 )
 
 type AskQuestion struct {
-	AQid     int64     `gorm:"primary_key;column:AQid;AUTO_INCREMENT"`
-	Sid      int64     `gorm:"column:Sid"`
-	Eid      int64     `gorm:"column:Eid"`
-	AQtime   time.Time `gorm:"column:AQtime"`
-	AQremark string    `gorm:"column:AQremark"`
+	AQid       int64     `gorm:"primary_key;column:AQid;AUTO_INCREMENT"`
+	Sid        int64     `gorm:"column:Sid"`
+	Eid        int64     `gorm:"column:Eid"`
+	AQtime     time.Time `gorm:"column:AQtime"`
+	AQremark   string    `gorm:"column:AQremark"`
+	AQisSolved int64     `gorm:"column:AQisSolved"`
 }
 
 //增
@@ -73,14 +74,42 @@ func (aq *AskQuestion) QueryByAQid(AQid int64) (result AskQuestion, err error) {
 	return
 }
 
-//查找老师监管内学生的提问问题
-func (aq *AskQuestion) QueryFromTeacher(Tid int64) (result []AskQuestion, err error) {
+//查找老师监管内学生的全部提问问题
+func (aq *AskQuestion) QueryFromTeacher(Tid int64, date string) (result []AskQuestion, err error) {
 
 	sub := orm.Eloquent.Table("TEACHAREA").Select("Cid").Where("Tid = ?", Tid).SubQuery()
 
 	sub = orm.Eloquent.Table("STUDENT").Select("Sid").Where("Cid in ?", sub).SubQuery()
 
-	err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ?", sub).Find(&result).Error
+	if date == "day" {
+		err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ? and DATEDIFF(now(), AQtime) <= ?", sub, 1).Find(&result).Error
+	} else if date == "week" {
+		err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ? and DATEDIFF(now(), AQtime) <= ?", sub, 7).Find(&result).Error
+	} else if date == "month" {
+		err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ? and DATEDIFF(now(), AQtime) <= ?", sub, 30).Find(&result).Error
+	} else if date == "all" {
+		err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ?", sub).Find(&result).Error
+	}
+
+	return
+}
+
+//查找老师监管内学生的未解决问题
+func (aq *AskQuestion) QueryUnresolvedFromTeacher(Tid int64, date string) (result []AskQuestion, err error) {
+
+	sub := orm.Eloquent.Table("TEACHAREA").Select("Cid").Where("Tid = ?", Tid).SubQuery()
+
+	sub = orm.Eloquent.Table("STUDENT").Select("Sid").Where("Cid in ?", sub).SubQuery()
+
+	if date == "day" {
+		err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ? and DATEDIFF(now(), AQtime) <= ? and AQisSolved = 0", sub, 1).Find(&result).Error
+	} else if date == "week" {
+		err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ? and DATEDIFF(now(), AQtime) <= ? and AQisSolved = 0", sub, 7).Find(&result).Error
+	} else if date == "month" {
+		err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ? and DATEDIFF(now(), AQtime) <= ? and AQisSolved = 0", sub, 30).Find(&result).Error
+	} else if date == "all" {
+		err = orm.Eloquent.Table("ASKQUESTION").Where("Sid in ? and AQisSolved = 0", sub).Find(&result).Error
+	}
 
 	return
 }

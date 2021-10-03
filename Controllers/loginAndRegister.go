@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/bigby/project/Services"
+	"github.com/bigby/project/Utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,11 +25,7 @@ func StudentLogin(c *gin.Context) {
 
 	res, err := studentService.Login()
 	if err != nil {
-		c.JSON(http.StatusOK, Res{
-			Code: -1,
-			Msg:  "No Data",
-			Data: nil,
-		})
+		c.JSON(http.StatusOK, res)
 		return
 	}
 	c.JSON(http.StatusOK, res)
@@ -41,7 +38,7 @@ func StudentLogin(c *gin.Context) {
 // @Produce  json
 // @Param StudentData body Models.Student true "学生信息"
 // @Success 200 {object} Res {"code":200,"msg":"Insert() success!","data":100001}
-// @Router /app/student/register [post]
+// @Router /app/login/register_student [post]
 func StudentRegister(c *gin.Context) {
 	var studentService Services.Student
 
@@ -56,17 +53,21 @@ func StudentRegister(c *gin.Context) {
 		return
 	}
 
-	res, err := studentService.Register()
+	studentService.Sgrade = Utils.GradeStringToInt(studentService.SgradeName)
+	if studentService.Sicon == "" {
+		studentService.Sicon = "default_boy.png"
+	}
 
+	result, err := studentService.Register()
 	if err != nil {
-		c.JSON(http.StatusOK, Res{
+		c.JSON(http.StatusBadRequest, Res{
 			Code: -1,
-			Msg:  "Register Failed!: " + err.Error(),
+			Msg:  "Error: " + err.Error(),
 			Data: nil,
 		})
 		return
 	}
-	c.JSON(http.StatusOK, res)
+	c.JSON(http.StatusOK, result)
 }
 
 // @Summary 教师登录
@@ -86,11 +87,7 @@ func TeacherLogin(c *gin.Context) {
 
 	res, err := teacherService.Login()
 	if err != nil {
-		c.JSON(http.StatusOK, Res{
-			Code: -1,
-			Msg:  "No Data",
-			Data: nil,
-		})
+		c.JSON(http.StatusOK, res)
 		return
 	}
 
@@ -114,11 +111,7 @@ func AdminLogin(c *gin.Context) {
 
 	res, err := adminService.Login()
 	if err != nil {
-		c.JSON(http.StatusOK, Res{
-			Code: -1,
-			Msg:  "No Data",
-			Data: nil,
-		})
+		c.JSON(http.StatusOK, res)
 		return
 	}
 

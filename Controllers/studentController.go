@@ -88,6 +88,40 @@ func StudentUpdateFromStudent(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
+// @Summary 编辑学生密码
+// @Description 编辑一个学生密码信息
+// @Tags Admin
+// @Accept json
+// @Produce  json
+// @Param studentData formData Services.Student true
+// @Success 200 {object} Res{data=Services.Student}
+// @Router /app/student/update_password [PUT]
+func StudentPasswordUpdateFromStudent(c *gin.Context) {
+	var studentService Services.Student
+
+	err := c.ShouldBindJSON(&studentService)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := studentService.UpdatePasswordFromStudent(studentService.Sid)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, result)
+}
+
 // @Summary 学生插入预约教师
 // @Description 插入预约教师数据
 // @Tags Student

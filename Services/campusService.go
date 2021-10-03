@@ -15,15 +15,31 @@ func (campus *Campus) QueryAll() (result []Models.Campus, err error) {
 	return
 }
 
-func (campus *Campus) Insert() (Cid int64, err error) {
+func (campus *Campus) Insert() (res Res, err error) {
 	var campusModel Models.Campus
 
-	campusModel.Cid = campus.Cid
+	// campusModel.Cid = campus.Cid
+
+	campusList, err := campusModel.QueryAll()
+
+	for _, v := range campusList {
+		if campus.Cname == v.Cname {
+			return Res{
+				Code: 2,
+				Msg:  "Campus exist!",
+				Data: nil,
+			}, err
+		}
+	}
 	campusModel.Cname = campus.Cname
 
-	Cid, err = campusModel.Insert()
+	Cid, err := campusModel.Insert()
 
-	return
+	return Res{
+		Code: 1,
+		Msg:  "Insert Success!",
+		Data: Cid,
+	}, err
 
 }
 

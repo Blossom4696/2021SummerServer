@@ -26,6 +26,6 @@ func main() {
 	defer orm.Eloquent.Close()
 
 	router := router.InitRouter()
-	router.Run()
+	router.RunTLS(":8080", "certs/www.bigby.love.pem", "certs/www.bigby.love.key")
 
 }

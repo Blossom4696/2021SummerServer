@@ -35,7 +35,7 @@ func (teachArea TeachArea) Insert() (TAid int64, err error) {
 //删
 func (teachArea *TeachArea) Delete(TAid int64) (Result TeachArea, err error) {
 
-	if err = orm.Eloquent.Table("TEACHAREA").Select([]string{"TAid"}).First(&teachArea, TAid).Error; err != nil {
+	if err = orm.Eloquent.Table("TEACHAREA").Where("TAid = ?", TAid).First(&teachArea).Error; err != nil {
 		return
 	}
 

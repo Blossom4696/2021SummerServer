@@ -216,3 +216,40 @@ func WrongProblemQueryByWid(c *gin.Context) {
 		Data: result,
 	})
 }
+
+// @Summary 更改错题
+// @Description 更新错题数据
+// @Tags WrongProblem
+// @Accept json
+// @Produce  json
+// @Param WPData body Models.WrongProblem true "习题数据"
+// @Success 200 {object} Res {"code":200,"msg":"Update() success!","data":500001}
+// @Router /app/wrong_problem/update_wrong_problem/:id [put]
+func WrongProblemUpdate(c *gin.Context) {
+	var wpService Services.WrongProblem
+
+	err := c.ShouldBindJSON(&wpService)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Res{
+			Code: -1,
+			Msg:  "Error: " + err.Error(),
+			Data: nil,
+		})
+		return
+	}
+
+	result, err := wpService.Update(wpService.Wid)
+	if err != nil || result.Wid == 0 {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    -1,
+			"message": "Update() error!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, Res{
+		Code: 1,
+		Msg:  "Update Success!",
+		Data: result.Wid,
+	})
+}
