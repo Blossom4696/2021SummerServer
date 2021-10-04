@@ -144,7 +144,7 @@ func TodayExerciseInsertFromTeacher(c *gin.Context) {
 	var err error
 	var recv Services.TEInsertRecv
 	c.ShouldBindJSON(&recv)
-	teService.TEdate, _ = time.Parse("2006/1/2", recv.Date)
+	teService.TEdate = time.Now()
 
 	id, err := teService.InsertFromTeacher(recv.Sids, recv.Eids)
 	if err != nil {

@@ -22,7 +22,7 @@ func TodayExerciseQuery(c *gin.Context) {
 	var teService Services.TodayExercise
 
 	teService.Sid, _ = strconv.ParseInt(c.Query("Sid"), 10, 64)
-	teService.TEdate, _ = time.Parse("2006/1/2", c.Query("Date"))
+	teService.TEdate, _ = time.Parse("2006/1/2", time.Now().Format("2006/1/2"))
 
 	result, err := teService.Query()
 

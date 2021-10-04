@@ -1,0 +1,103 @@
+2021/10/04 17:48:40 http: TLS handshake error from 112.48.45.138:31492: EOF
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:50:47][0m [31;1m Error 1062: Duplicate entry '1-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:51:16][0m [31;1m Error 1062: Duplicate entry '1-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:51:16][0m [31;1m Error 1062: Duplicate entry '6-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:52:04][0m [31;1m Error 1062: Duplicate entry '1-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:52:04][0m [31;1m Error 1062: Duplicate entry '6-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:52:04][0m [31;1m Error 1062: Duplicate entry '1-100002-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:52:04][0m [31;1m Error 1062: Duplicate entry '6-100002-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:52:04][0m [31;1m Error 1062: Duplicate entry '1-100013-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:52:04][0m [31;1m Error 1062: Duplicate entry '6-100013-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:52:04][0m [31;1m Error 1062: Duplicate entry '1-100018-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 17:52:04][0m [31;1m Error 1062: Duplicate entry '6-100018-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+2021/10/04 18:00:15 http: TLS handshake error from 106.75.212.164:42204: tls: first record does not look like a TLS handshake
+2021/10/04 18:00:15 http: TLS handshake error from 106.75.212.164:42200: tls: first record does not look like a TLS handshake
+2021/10/04 18:00:25 http: TLS handshake error from 106.75.212.164:42202: unexpected EOF
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:05:50][0m [31;1m Error 1062: Duplicate entry '1-100002-2021-10-04' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:05:50][0m [31;1m Error 1062: Duplicate entry '2-100002-2021-10-04' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:05:50][0m [31;1m Error 1062: Duplicate entry '3-100002-2021-10-04' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:05:50][0m [31;1m Error 1062: Duplicate entry '1-100018-2021-10-04' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+2021/10/04 18:10:31 http: TLS handshake error from 223.104.52.49:44931: EOF
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '1-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '2-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '3-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '4-100001-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '1-100002-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '2-100002-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '3-100002-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '4-100002-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '1-100013-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '2-100013-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '3-100013-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+
+[35m(/root/go/src/github.com/bigby/project/Models/todayExerciseModel.go:21)[0m 
+[33m[2021-10-04 18:14:24][0m [31;1m Error 1062: Duplicate entry '4-100013-0000-00-00' for key 'DISTINCT_Eid_Sid_TEdate' [0m
+2021/10/04 18:19:42 http: TLS handshake error from 193.106.29.74:64492: tls: first record does not look like a TLS handshake
+2021/10/04 19:06:24 http: TLS handshake error from 161.35.230.183:42448: tls: first record does not look like a TLS handshake
+2021/10/04 20:33:15 http: TLS handshake error from 222.186.19.235:42556: tls: first record does not look like a TLS handshake
+2021/10/04 20:33:15 http: TLS handshake error from 222.186.19.235:42592: tls: first record does not look like a TLS handshake
+2021/10/04 20:33:15 http: TLS handshake error from 222.186.19.235:42610: remote error: tls: bad certificate
+2021/10/04 20:33:22 http: TLS handshake error from 222.186.19.235:42604: unexpected EOF
+2021/10/04 21:05:30 http: TLS handshake error from 89.248.165.46:56208: tls: first record does not look like a TLS handshake
+2021/10/04 21:26:19 http: TLS handshake error from 161.189.134.11:48642: tls: first record does not look like a TLS handshake
+2021/10/04 21:34:35 http: TLS handshake error from 161.189.192.94:48284: tls: first record does not look like a TLS handshake
+2021/10/04 21:49:17 http: TLS handshake error from 161.189.134.11:46946: tls: first record does not look like a TLS handshake
+2021/10/04 21:50:45 http: TLS handshake error from 161.189.192.94:44634: tls: first record does not look like a TLS handshake
+2021/10/04 22:43:56 http: TLS handshake error from 47.241.246.181:48752: tls: first record does not look like a TLS handshake
+2021/10/04 22:44:13 http: TLS handshake error from 47.241.246.181:49960: unexpected EOF
+2021/10/04 22:44:29 http: TLS handshake error from 47.241.246.181:39722: tls: first record does not look like a TLS handshake
+2021/10/04 22:47:42 http: TLS handshake error from 117.14.159.92:51612: EOF
+2021/10/04 22:47:42 http: TLS handshake error from 111.162.147.238:51622: tls: first record does not look like a TLS handshake
+signal: terminated
