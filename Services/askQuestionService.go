@@ -96,12 +96,15 @@ func (aq *AskQuestion) QueryFromTeacher(Tid int64, unresolved string, date strin
 
 		result[i].Snickname = student.Snickname
 
-		exercise, err := exerciseModel.QueryByEid(result[i].Eid)
-		if err != nil {
-			return nil, err
+		if result[i].Eid != -1 {
+			exercise, err := exerciseModel.QueryByEid(result[i].Eid)
+			if err != nil {
+				return nil, err
+			}
+
+			result[i].Etitle = exercise.Etitle
 		}
 
-		result[i].Etitle = exercise.Etitle
 	}
 
 	if err != nil {
