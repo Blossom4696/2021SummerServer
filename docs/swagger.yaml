@@ -8,6 +8,30 @@ definitions:
       Msg:
         type: string
     type: object
+  Models.Admin:
+    properties:
+      aid:
+        type: integer
+      aname:
+        type: string
+      apassword:
+        type: string
+    type: object
+  Models.AskQuestion:
+    properties:
+      aqid:
+        type: integer
+      aqisSolved:
+        type: integer
+      aqremark:
+        type: string
+      aqtime:
+        type: string
+      eid:
+        type: integer
+      sid:
+        type: integer
+    type: object
   Models.Campus:
     properties:
       cid:
@@ -42,14 +66,54 @@ definitions:
       eunit:
         type: string
     type: object
+  Models.LearnSituation:
+    properties:
+      lsattendence:
+        type: string
+      lsdate:
+        type: string
+      lsexam:
+        type: string
+      lsgrade:
+        type: string
+      lshomework:
+        type: string
+      lsid:
+        type: integer
+      lsperform:
+        type: string
+      lssubject:
+        type: string
+      sid:
+        type: integer
+    type: object
+  Models.OrderTeacher:
+    properties:
+      otaddress:
+        type: string
+      otcontactName:
+        type: string
+      otcontactPhone:
+        type: string
+      otcreateTime:
+        type: string
+      otid:
+        type: integer
+      otsubject:
+        type: string
+      ottimeSlot:
+        type: string
+      otweek:
+        type: string
+      sid:
+        type: integer
+    type: object
   Models.Student:
     properties:
       cid:
         type: integer
-      cname:
-        type: string
       sgrade:
-        type: string
+        type: integer
       sicon:
         type: string
       sid:
@@ -76,6 +140,56 @@ definitions:
       tpassword:
         type: string
       tphone:
+        type: string
+    type: object
+  Models.TodayExercise:
+    properties:
+      eid:
+        type: integer
+      sid:
+        type: integer
+      teanswerPath:
+        type: string
+      teanswerTxt:
+        type: string
+      tedate:
+        type: string
+      teid:
+        type: integer
+    type: object
+  Models.WrongProblem:
+    properties:
+      sid:
+        type: integer
+      wanswerPath:
+        type: string
+      wanswerTxt:
+        type: string
+      wcreateTime:
+        type: string
+      wdescription:
+        type: string
+      wdifficulty:
+        type: string
+      wgrade:
+        type: string
+      wid:
+        type: integer
+      wmyAnswerPath:
+        type: string
+      wmyAnswerTxt:
+        type: string
+      wproblemPath:
+        type: string
+      wproblemTxt:
+        type: string
+      wsubject:
+        type: string
+      wtitle:
+        type: string
+      wtype:
+        type: string
+      wunit:
         type: string
     type: object
   Services.ExerciseField:
@@ -105,7 +219,57 @@ definitions:
           type: array
         type: object
     type: object
-host: 159.138.3.194:8080
+  Services.Student:
+    properties:
+      cid:
+        type: integer
+      cname:
+        type: string
+      sgrade:
+        type: integer
+      sgradeName:
+        type: string
+      sicon:
+        type: string
+      sid:
+        type: integer
+      sname:
+        type: string
+      snickname:
+        type: string
+      soldPassword:
+        type: string
+      spassword:
+        type: string
+      spasswordAgain:
+        type: string
+      sphone:
+        type: string
+    type: object
+  Services.Teacher:
+    properties:
+      cnames:
+        items:
+          type: string
+        type: array
+      ticon:
+        type: string
+      tid:
+        type: integer
+      tname:
+        type: string
+      tnickname:
+        type: string
+      toldPassword:
+        type: string
+      tpassword:
+        type: string
+      tpasswordAgain:
+        type: string
+      tphone:
+        type: string
+    type: object
+host: 1.116.126.208:8080
 info:
   contact:
     email: support@swagger.io
@@ -119,6 +283,493 @@ info:
   title: Swagger Example API
   version: "1.0"
 paths:
+  /app/admin/get_admin:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取一个管理员信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 管理员获取管理员
+      tags:
+      - Admin
+  /app/admin/get_admin_list:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取管理员列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 管理员获取管理员列表
+      tags:
+      - Admin
+  /app/admin/get_campus_list:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取所有校区信息列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.Campus'
+                  type: array
+              type: object
+      summary: 管理员获取校区信息列表
+      tags:
+      - Admin
+  /app/admin/get_student:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取一个学生信息
+      parameters:
+      - description: 学生id
+        in: query
+        name: Sid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Student'
+              type: object
+      summary: 管理员获取一个学生信息
+      tags:
+      - Admin
+  /app/admin/get_student_list:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取所有学生信息列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.Student'
+                  type: array
+              type: object
+      summary: 管理员获取学生信息列表
+      tags:
+      - Admin
+  /app/admin/get_student_sorted_list:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取所有学生信息列表（排序后）
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Services.Student'
+                  type: array
+              type: object
+      summary: 管理员获取学生信息列表（排序后）
+      tags:
+      - Admin
+  /app/admin/get_teacher:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取一个教师信息
+      parameters:
+      - description: 教师id
+        in: query
+        name: Tid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Teacher'
+              type: object
+      summary: 管理员获取一个教师信息
+      tags:
+      - Admin
+  /app/admin/get_teacher_list:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取所有教师信息列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Services.Teacher'
+                  type: array
+              type: object
+      summary: 管理员获取教师信息列表
+      tags:
+      - Admin
+  /app/admin/get_teacher_sorted_list:
+    get:
+      consumes:
+      - application/json
+      description: 管理员获取所有教师信息列表（排序后）
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Services.Teacher'
+                  type: array
+              type: object
+      summary: 管理员获取教师信息列表（排序后）
+      tags:
+      - Admin
+  /app/admin/insert_admin:
+    post:
+      consumes:
+      - application/json
+      description: 管理员增加管理员
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 管理员增加管理员
+      tags:
+      - Admin
+  /app/admin/insert_campus:
+    post:
+      consumes:
+      - application/json
+      description: 管理员增加校区信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 管理员增加校区信息
+      tags:
+      - Admin
+  /app/admin/insert_student:
+    post:
+      consumes:
+      - application/json
+      description: 管理员增加一个学生信息，注册学生
+      parameters:
+      - in: formData
+        name: cid
+        type: integer
+      - in: formData
+        name: cname
+        type: string
+      - in: formData
+        name: sgrade
+        type: integer
+      - in: formData
+        name: sgradeName
+        type: string
+      - in: formData
+        name: sicon
+        type: string
+      - in: formData
+        name: sid
+        type: integer
+      - in: formData
+        name: sname
+        type: string
+      - in: formData
+        name: snickname
+        type: string
+      - in: formData
+        name: soldPassword
+        type: string
+      - in: formData
+        name: spassword
+        type: string
+      - in: formData
+        name: spasswordAgain
+        type: string
+      - in: formData
+        name: sphone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Student'
+              type: object
+      summary: 管理员增加学生
+      tags:
+      - Admin
+  /app/admin/insert_teacher:
+    post:
+      consumes:
+      - application/json
+      description: 管理员增加一个教师信息，注册教师
+      parameters:
+      - in: formData
+        items:
+          type: string
+        name: cnames
+        type: array
+      - in: formData
+        name: ticon
+        type: string
+      - in: formData
+        name: tid
+        type: integer
+      - in: formData
+        name: tname
+        type: string
+      - in: formData
+        name: tnickname
+        type: string
+      - in: formData
+        name: toldPassword
+        type: string
+      - in: formData
+        name: tpassword
+        type: string
+      - in: formData
+        name: tpasswordAgain
+        type: string
+      - in: formData
+        name: tphone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Teacher'
+              type: object
+      summary: 管理员增加教师
+      tags:
+      - Admin
+  /app/admin/update_admin:
+    put:
+      consumes:
+      - application/json
+      description: 管理员编辑管理员信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 管理员编辑管理员
+      tags:
+      - Admin
+  /app/admin/update_campus:
+    put:
+      consumes:
+      - application/json
+      description: 管理员编辑校区信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 管理员编辑校区信息
+      tags:
+      - Admin
+  /app/admin/update_student:
+    post:
+      consumes:
+      - application/json
+      description: 管理员编辑一个学生信息
+      parameters:
+      - in: formData
+        name: cid
+        type: integer
+      - in: formData
+        name: cname
+        type: string
+      - in: formData
+        name: sgrade
+        type: integer
+      - in: formData
+        name: sgradeName
+        type: string
+      - in: formData
+        name: sicon
+        type: string
+      - in: formData
+        name: sid
+        type: integer
+      - in: formData
+        name: sname
+        type: string
+      - in: formData
+        name: snickname
+        type: string
+      - in: formData
+        name: soldPassword
+        type: string
+      - in: formData
+        name: spassword
+        type: string
+      - in: formData
+        name: spasswordAgain
+        type: string
+      - in: formData
+        name: sphone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Student'
+              type: object
+      summary: 管理员编辑学生
+      tags:
+      - Admin
+  /app/admin/update_teacher:
+    post:
+      consumes:
+      - application/json
+      description: 管理员编辑一个教师信息
+      parameters:
+      - in: formData
+        items:
+          type: string
+        name: cnames
+        type: array
+      - in: formData
+        name: ticon
+        type: string
+      - in: formData
+        name: tid
+        type: integer
+      - in: formData
+        name: tname
+        type: string
+      - in: formData
+        name: tnickname
+        type: string
+      - in: formData
+        name: toldPassword
+        type: string
+      - in: formData
+        name: tpassword
+        type: string
+      - in: formData
+        name: tpasswordAgain
+        type: string
+      - in: formData
+        name: tphone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Teacher'
+              type: object
+      summary: 管理员编辑教师
+      tags:
+      - Admin
+  /app/campus/delete_campus/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 删除校区数据
+      parameters:
+      - description: 校区id
+        in: query
+        name: Cid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Delete() success!","data":500001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 删除校区
+      tags:
+      - Admin
   /app/campus/get_all_campus:
     get:
       consumes:
@@ -210,7 +861,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: 删除习题数据
+      description: 通过Eid查找习题
       parameters:
       - description: 习题id
         in: query
@@ -224,15 +875,20 @@ paths:
           description: code":200,"msg":"Query() success!","data":500001}
           schema:
             $ref: '#/definitions/Controllers.Res'
-      summary: 删除习题
+      summary: 查找习题
       tags:
       - Exercise
   /app/exercise/get_sorted_exercise:
     get:
       consumes:
       - application/json
-      description: 获取筛选后的习题列表
+      description: 获取筛选后的错题列表
       parameters:
+      - description: 学生id
+        in: query
+        name: Sid
+        required: true
+        type: string
       - description: 科目
         in: query
         name: subject
@@ -269,17 +925,17 @@ paths:
             - properties:
                 data:
                   items:
-                    $ref: '#/definitions/Models.Exercise'
+                    $ref: '#/definitions/Models.WrongProblem'
                   type: array
               type: object
-      summary: 习题列表筛选
+      summary: 错题列表筛选
       tags:
-      - Exercise
+      - WrongProblem
   /app/exercise/insert_exercise:
     post:
       consumes:
       - application/json
-      description: 插入习题数据
+      description: 插入今日习题数据
       parameters:
       - description: 习题数据
         in: body
@@ -294,9 +950,9 @@ paths:
           description: code":200,"msg":"Insert() success!","data":500001}
           schema:
             $ref: '#/definitions/Controllers.Res'
-      summary: 插入习题
+      summary: 插入今日习题
       tags:
-      - Exercise
+      - Teacher
   /app/exercise/update_exercise/:id:
     put:
       consumes:
@@ -351,6 +1007,22 @@ paths:
       summary: 获取图片
       tags:
       - File
+  /app/file/get_pdf:
+    get:
+      consumes:
+      - application/json
+      description: 下载服务端文件夹中的pdf
+      parameters:
+      - description: 文件路径
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: 获取pdf
+      tags:
+      - File
   /app/file/upload_file:
     post:
       consumes:
@@ -367,7 +1039,60 @@ paths:
       summary: 上传文件
       tags:
       - File
-  /app/student/login:
+  /app/login/admin_login:
+    get:
+      consumes:
+      - application/json
+      description: 匹配管理员密码，若登录成功则返回管理员信息
+      parameters:
+      - description: 用户名
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Models.Admin'
+              type: object
+      summary: 管理员登录
+      tags:
+      - Admin
+  /app/login/register_student:
+    post:
+      consumes:
+      - application/json
+      description: 根据发送的学生信息注册新用户
+      parameters:
+      - description: 学生信息
+        in: body
+        name: StudentData
+        required: true
+        schema:
+          $ref: '#/definitions/Models.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Insert() success!","data":100001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 学生注册
+      tags:
+      - Student
+  /app/login/student_login:
     get:
       consumes:
       - application/json
@@ -398,57 +1123,7 @@ paths:
       summary: 学生登录
       tags:
       - Student
-  /app/student/register:
-    post:
-      consumes:
-      - application/json
-      description: 根据发送的学生信息注册新用户
-      parameters:
-      - description: 学生信息
-        in: body
-        name: StudentData
-        required: true
-        schema:
-          $ref: '#/definitions/Models.Student'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: code":200,"msg":"Insert() success!","data":100001}
-          schema:
-            $ref: '#/definitions/Controllers.Res'
-      summary: 学生注册
-      tags:
-      - Student
-  /app/teacher/get_student_list:
-    get:
-      consumes:
-      - application/json
-      description: 获取监管校区内的学生信息列表
-      parameters:
-      - description: 教师id
-        in: query
-        name: Tid
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/Controllers.Res'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/Models.Student'
-                  type: array
-              type: object
-      summary: 获取学生信息列表
-      tags:
-      - Teacher
-  /app/teacher/login:
+  /app/login/teacher_login:
     get:
       consumes:
       - application/json
@@ -479,6 +1154,655 @@ paths:
       summary: 教师登录
       tags:
       - Teacher
+  /app/order/get_order_teacher:
+    get:
+      consumes:
+      - application/json
+      description: 获取某个预约家教信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Models.OrderTeacher'
+              type: object
+      summary: 预约家教信息
+      tags:
+      - OrderTeacher
+  /app/order/get_order_teacher_list:
+    get:
+      consumes:
+      - application/json
+      description: 获取预约家教列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.OrderTeacher'
+                  type: array
+              type: object
+      summary: 预约家教列表
+      tags:
+      - OrderTeacher
+  /app/student/delete_student/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 删除学生数据
+      parameters:
+      - description: 学生id
+        in: query
+        name: Sid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Delete() success!","data":500001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 删除学生
+      tags:
+      - Admin
+  /app/student/get_learn_situation_list:
+    get:
+      consumes:
+      - application/json
+      description: 学生获取监管校区内的学生学情列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  additionalProperties:
+                    items:
+                      $ref: '#/definitions/Models.LearnSituation'
+                    type: array
+                  type: object
+              type: object
+      summary: 学生获取学情列表
+      tags:
+      - Student
+  /app/student/get_student_self:
+    get:
+      consumes:
+      - application/json
+      description: 获取自己的用户信息
+      parameters:
+      - description: 学生id
+        in: query
+        name: Sid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Models.Student'
+              type: object
+      summary: 获取自己信息
+      tags:
+      - Student
+  /app/student/insert_ask_question:
+    post:
+      consumes:
+      - application/json
+      description: 插入提问问题数据
+      parameters:
+      - description: 预约教师数据
+        in: body
+        name: OTData
+        required: true
+        schema:
+          $ref: '#/definitions/Models.AskQuestion'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Insert() success!","data":500001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 学生提问
+      tags:
+      - Student
+  /app/student/insert_order_teacher:
+    post:
+      consumes:
+      - application/json
+      description: 插入预约教师数据
+      parameters:
+      - description: 预约教师数据
+        in: body
+        name: OTData
+        required: true
+        schema:
+          $ref: '#/definitions/Models.OrderTeacher'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Insert() success!","data":500001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 学生插入预约教师
+      tags:
+      - Student
+  /app/student/update_password:
+    put:
+      consumes:
+      - application/json
+      description: 编辑一个学生密码信息
+      parameters:
+      - in: formData
+        name: cid
+        type: integer
+      - in: formData
+        name: cname
+        type: string
+      - in: formData
+        name: sgrade
+        type: integer
+      - in: formData
+        name: sgradeName
+        type: string
+      - in: formData
+        name: sicon
+        type: string
+      - in: formData
+        name: sid
+        type: integer
+      - in: formData
+        name: sname
+        type: string
+      - in: formData
+        name: snickname
+        type: string
+      - in: formData
+        name: soldPassword
+        type: string
+      - in: formData
+        name: spassword
+        type: string
+      - in: formData
+        name: spasswordAgain
+        type: string
+      - in: formData
+        name: sphone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Student'
+              type: object
+      summary: 编辑学生密码
+      tags:
+      - Admin
+  /app/student/update_student:
+    post:
+      consumes:
+      - application/json
+      description: 编辑一个学生信息
+      parameters:
+      - in: formData
+        name: cid
+        type: integer
+      - in: formData
+        name: cname
+        type: string
+      - in: formData
+        name: sgrade
+        type: integer
+      - in: formData
+        name: sgradeName
+        type: string
+      - in: formData
+        name: sicon
+        type: string
+      - in: formData
+        name: sid
+        type: integer
+      - in: formData
+        name: sname
+        type: string
+      - in: formData
+        name: snickname
+        type: string
+      - in: formData
+        name: soldPassword
+        type: string
+      - in: formData
+        name: spassword
+        type: string
+      - in: formData
+        name: spasswordAgain
+        type: string
+      - in: formData
+        name: sphone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Student'
+              type: object
+      summary: 编辑学生
+      tags:
+      - Admin
+  /app/teacher/delete_learn_situation/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 教师删除监管校区内的学生学情
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 教师删除学生学情
+      tags:
+      - Teacher
+  /app/teacher/delete_teacher/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 删除教师数据
+      parameters:
+      - description: 教师id
+        in: query
+        name: Tid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Delete() success!","data":500001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 删除教师
+      tags:
+      - Admin
+  /app/teacher/generate_exercise_pdf:
+    get:
+      consumes:
+      - application/json
+      description: 教师整理习题信息并转成pdf
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 教师整理习题信息
+      tags:
+      - Teacher
+  /app/teacher/generate_wrong_problem_pdf:
+    get:
+      consumes:
+      - application/json
+      description: 教师整理错题信息并转成pdf
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 教师整理错题信息
+      tags:
+      - Teacher
+  /app/teacher/get_ask_question:
+    get:
+      consumes:
+      - application/json
+      description: 教师获取监管校区内的学生提问信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Models.AskQuestion'
+              type: object
+      summary: 教师获取学生提问信息
+      tags:
+      - Teacher
+  /app/teacher/get_ask_question_list:
+    get:
+      consumes:
+      - application/json
+      description: 教师获取监管校区内的学生提问列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.AskQuestion'
+                  type: array
+              type: object
+      summary: 教师获取学生提问列表
+      tags:
+      - Teacher
+  /app/teacher/get_learn_situation_list:
+    get:
+      consumes:
+      - application/json
+      description: 教师获取监管校区内的学生学情列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  additionalProperties:
+                    items:
+                      $ref: '#/definitions/Models.LearnSituation'
+                    type: array
+                  type: object
+              type: object
+      summary: 教师获取学生学情列表
+      tags:
+      - Teacher
+  /app/teacher/get_student:
+    get:
+      consumes:
+      - application/json
+      description: 教师获取监管校区内的一个学生信息
+      parameters:
+      - description: 学生id
+        in: query
+        name: Sid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Models.Student'
+              type: object
+      summary: 教师获取一个学生信息
+      tags:
+      - Teacher
+  /app/teacher/get_student_list:
+    get:
+      consumes:
+      - application/json
+      description: 教师获取监管校区内的学生信息列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.Student'
+                  type: array
+              type: object
+      summary: 教师获取学生信息列表
+      tags:
+      - Teacher
+  /app/teacher/get_student_sorted_list:
+    get:
+      consumes:
+      - application/json
+      description: 教师获取监管校区内的学生信息列表（排序后）
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.Student'
+                  type: array
+              type: object
+      summary: 教师获取学生信息列表（排序后）
+      tags:
+      - Teacher
+  /app/teacher/get_teacher:
+    get:
+      consumes:
+      - application/json
+      description: 获取一个教师信息
+      parameters:
+      - description: 教师id
+        in: query
+        name: Tid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Teacher'
+              type: object
+      summary: 获取一个教师信息
+      tags:
+      - Admin
+  /app/teacher/insert_learn_situation:
+    post:
+      consumes:
+      - application/json
+      description: 教师添加监管校区内的学生学情
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 教师添加学生学情
+      tags:
+      - Teacher
+  /app/teacher/update_ask_question:
+    post:
+      consumes:
+      - application/json
+      description: 教师更改监管校区内的学生提问信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Models.AskQuestion'
+              type: object
+      summary: 教师更改学生提问信息
+      tags:
+      - Teacher
+  /app/teacher/update_learn_situation:
+    put:
+      consumes:
+      - application/json
+      description: 教师修改监管校区内的学生学情
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 教师修改学生学情
+      tags:
+      - Teacher
+  /app/teacher/update_password:
+    put:
+      consumes:
+      - application/json
+      description: 编辑一个教师信息
+      parameters:
+      - in: formData
+        items:
+          type: string
+        name: cnames
+        type: array
+      - in: formData
+        name: ticon
+        type: string
+      - in: formData
+        name: tid
+        type: integer
+      - in: formData
+        name: tname
+        type: string
+      - in: formData
+        name: tnickname
+        type: string
+      - in: formData
+        name: toldPassword
+        type: string
+      - in: formData
+        name: tpassword
+        type: string
+      - in: formData
+        name: tpasswordAgain
+        type: string
+      - in: formData
+        name: tphone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Teacher'
+              type: object
+      summary: 编辑教师
+      tags:
+      - Teacher
+  /app/teacher/update_teacher:
+    post:
+      consumes:
+      - application/json
+      description: 编辑一个教师信息
+      parameters:
+      - in: formData
+        items:
+          type: string
+        name: cnames
+        type: array
+      - in: formData
+        name: ticon
+        type: string
+      - in: formData
+        name: tid
+        type: integer
+      - in: formData
+        name: tname
+        type: string
+      - in: formData
+        name: tnickname
+        type: string
+      - in: formData
+        name: toldPassword
+        type: string
+      - in: formData
+        name: tpassword
+        type: string
+      - in: formData
+        name: tpasswordAgain
+        type: string
+      - in: formData
+        name: tphone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services.Teacher'
+              type: object
+      summary: 编辑教师
+      tags:
+      - Admin
   /app/test/login:
     get:
       consumes:
@@ -516,10 +1840,272 @@ paths:
             - properties:
                 data:
                   items:
-                    $ref: '#/definitions/Models.Exercise'
+                    $ref: '#/definitions/Models.TodayExercise'
                   type: array
               type: object
       summary: 今日习题列表
       tags:
       - TodayExercise
+  /app/today/judge_today_exercise:
+    get:
+      consumes:
+      - application/json
+      description: 学生提交今日习题，系统进行保存并自动判题
+      parameters:
+      - description: 学生id
+        in: query
+        name: Sid
+        required: true
+        type: string
+      - description: 题目id和学生答案
+        in: query
+        name: Answer
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.TodayExercise'
+                  type: array
+              type: object
+      summary: 判题(学生)
+      tags:
+      - TodayExercise
+  /app/user/common/search_exercise:
+    get:
+      consumes:
+      - application/json
+      description: 搜索匹配字符串显示习题列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.Exercise'
+                  type: array
+              type: object
+      summary: 搜索习题信息
+      tags:
+      - Search
+  /app/user/common/search_student_from_admin:
+    get:
+      consumes:
+      - application/json
+      description: 管理员搜索匹配字符串显示学生列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.Student'
+                  type: array
+              type: object
+      summary: 管理员搜索学生信息
+      tags:
+      - Search
+  /app/user/common/search_student_from_teacher:
+    get:
+      consumes:
+      - application/json
+      description: 教师搜索匹配字符串显示学生列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.Student'
+                  type: array
+              type: object
+      summary: 教师搜索学生信息
+      tags:
+      - Search
+  /app/user/common/search_teacher:
+    get:
+      consumes:
+      - application/json
+      description: 搜索匹配字符串显示教师列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.Teacher'
+                  type: array
+              type: object
+      summary: 搜索教师信息
+      tags:
+      - Search
+  /app/user/common/search_wrong_problem:
+    get:
+      consumes:
+      - application/json
+      description: 搜索匹配字符串显示错题列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.WrongProblem'
+                  type: array
+              type: object
+      summary: 搜索错题信息
+      tags:
+      - Search
+  /app/wrong_problem/delete_wrong_problem/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 删除错题数据
+      parameters:
+      - description: 错题id
+        in: query
+        name: Wid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Delete() success!","data":500001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 删除错题
+      tags:
+      - WrongProblem
+  /app/wrong_problem/get_wrong_problem:
+    get:
+      consumes:
+      - application/json
+      description: 同过Wid查找错题
+      parameters:
+      - description: 错题id
+        in: query
+        name: Wid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  $ref: '#/definitions/Models.WrongProblem'
+              type: object
+      summary: 查找错题
+      tags:
+      - WrongProblem
+  /app/wrong_problem/insert_wrong_problem:
+    post:
+      consumes:
+      - application/json
+      description: 插入错题数据
+      parameters:
+      - description: 习题数据
+        in: body
+        name: WrongProblemData
+        required: true
+        schema:
+          $ref: '#/definitions/Models.WrongProblem'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Insert() success!","data":500001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 插入错题
+      tags:
+      - WrongProblem
+  /app/wrong_problem/update_wrong_problem/:id:
+    put:
+      consumes:
+      - application/json
+      description: 更新错题数据
+      parameters:
+      - description: 习题数据
+        in: body
+        name: WPData
+        required: true
+        schema:
+          $ref: '#/definitions/Models.WrongProblem'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: code":200,"msg":"Update() success!","data":500001}
+          schema:
+            $ref: '#/definitions/Controllers.Res'
+      summary: 更改错题
+      tags:
+      - WrongProblem
+  /app/wrongproblem/get_wrongproblem:
+    get:
+      consumes:
+      - application/json
+      description: 获取错题列表
+      parameters:
+      - description: 学生id
+        in: query
+        name: Sid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Controllers.Res'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Models.WrongProblem'
+                  type: array
+              type: object
+      summary: 错题列表
+      tags:
+      - WrongProblem
 swagger: "2.0"

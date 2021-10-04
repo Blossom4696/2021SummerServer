@@ -54,7 +54,7 @@ func StudentQueryFromStudent(c *gin.Context) {
 // @Tags Admin
 // @Accept json
 // @Produce  json
-// @Param studentData formData Services.Student true
+// @Param studentData formData Services.Student true "学生数据"
 // @Success 200 {object} Res{data=Services.Student}
 // @Router /app/student/update_student [POST]
 func StudentUpdateFromStudent(c *gin.Context) {
@@ -93,7 +93,7 @@ func StudentUpdateFromStudent(c *gin.Context) {
 // @Tags Admin
 // @Accept json
 // @Produce  json
-// @Param studentData formData Services.Student true
+// @Param studentData formData Services.Student true "学生数据"
 // @Success 200 {object} Res{data=Services.Student}
 // @Router /app/student/update_password [PUT]
 func StudentPasswordUpdateFromStudent(c *gin.Context) {

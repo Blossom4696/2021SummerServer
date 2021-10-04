@@ -19,7 +19,7 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host 159.138.3.194:8080
+// @host 1.116.126.208:8080
 func main() {
 	orm.InitMysql()
 	orm.InitRedis()

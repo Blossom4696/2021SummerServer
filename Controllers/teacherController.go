@@ -205,7 +205,7 @@ func TeacherQueryFromTeacher(c *gin.Context) {
 // @Tags Admin
 // @Accept json
 // @Produce  json
-// @Param teacherData formData Services.Teacher true
+// @Param teacherData formData Services.Teacher true "教师数据"
 // @Success 200 {object} Res{data=Services.Teacher}
 // @Router /app/teacher/update_teacher [POST]
 func TeacherUpdateFromTeacher(c *gin.Context) {
@@ -243,7 +243,7 @@ func TeacherUpdateFromTeacher(c *gin.Context) {
 // @Tags Teacher
 // @Accept json
 // @Produce  json
-// @Param teacherData formData Services.Teacher true
+// @Param teacherData formData Services.Teacher true "教师数据"
 // @Success 200 {object} Res{data=Services.Teacher}
 // @Router /app/teacher/update_password [PUT]
 func TeacherPasswordUpdateFromTeacher(c *gin.Context) {

@@ -15,8 +15,820 @@
         },
         "version": "1.0"
     },
-    "host": "159.138.3.194:8080",
+    "host": "1.116.126.208:8080",
     "paths": {
+        "/app/admin/get_admin": {
+            "get": {
+                "description": "管理员获取一个管理员信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取管理员",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/get_admin_list": {
+            "get": {
+                "description": "管理员获取管理员列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取管理员列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/get_campus_list": {
+            "get": {
+                "description": "管理员获取所有校区信息列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取校区信息列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Campus"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/get_student": {
+            "get": {
+                "description": "管理员获取一个学生信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取一个学生信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生id",
+                        "name": "Sid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Student"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/get_student_list": {
+            "get": {
+                "description": "管理员获取所有学生信息列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取学生信息列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Student"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/get_student_sorted_list": {
+            "get": {
+                "description": "管理员获取所有学生信息列表（排序后）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取学生信息列表（排序后）",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Services.Student"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/get_teacher": {
+            "get": {
+                "description": "管理员获取一个教师信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取一个教师信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "教师id",
+                        "name": "Tid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Teacher"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/get_teacher_list": {
+            "get": {
+                "description": "管理员获取所有教师信息列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取教师信息列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Services.Teacher"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/get_teacher_sorted_list": {
+            "get": {
+                "description": "管理员获取所有教师信息列表（排序后）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员获取教师信息列表（排序后）",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Services.Teacher"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/insert_admin": {
+            "post": {
+                "description": "管理员增加管理员",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员增加管理员",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/insert_campus": {
+            "post": {
+                "description": "管理员增加校区信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员增加校区信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/insert_student": {
+            "post": {
+                "description": "管理员增加一个学生信息，注册学生",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员增加学生",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "cid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "cname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sgrade",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sgradeName",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sicon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "snickname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "soldPassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "spassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "spasswordAgain",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sphone",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Student"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/insert_teacher": {
+            "post": {
+                "description": "管理员增加一个教师信息，注册教师",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员增加教师",
+                "parameters": [
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "name": "cnames",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ticon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "tid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tnickname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "toldPassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tpassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tpasswordAgain",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tphone",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Teacher"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/update_admin": {
+            "put": {
+                "description": "管理员编辑管理员信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员编辑管理员",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/update_campus": {
+            "put": {
+                "description": "管理员编辑校区信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员编辑校区信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/update_student": {
+            "post": {
+                "description": "管理员编辑一个学生信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员编辑学生",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "cid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "cname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sgrade",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sgradeName",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sicon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "snickname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "soldPassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "spassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "spasswordAgain",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sphone",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Student"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/admin/update_teacher": {
+            "post": {
+                "description": "管理员编辑一个教师信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员编辑教师",
+                "parameters": [
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "name": "cnames",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ticon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "tid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tnickname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "toldPassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tpassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tpasswordAgain",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tphone",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Teacher"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/campus/delete_campus/:id": {
+            "delete": {
+                "description": "删除校区数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "删除校区",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "校区id",
+                        "name": "Cid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Delete() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
         "/app/campus/get_all_campus": {
             "get": {
                 "description": "获取校区列表",
@@ -165,7 +977,7 @@
         },
         "/app/exercise/get_exercise": {
             "get": {
-                "description": "删除习题数据",
+                "description": "通过Eid查找习题",
                 "consumes": [
                     "application/json"
                 ],
@@ -175,7 +987,7 @@
                 "tags": [
                     "Exercise"
                 ],
-                "summary": "删除习题",
+                "summary": "查找习题",
                 "parameters": [
                     {
                         "type": "string",
@@ -197,7 +1009,7 @@
         },
         "/app/exercise/get_sorted_exercise": {
             "get": {
-                "description": "获取筛选后的习题列表",
+                "description": "获取筛选后的错题列表",
                 "consumes": [
                     "application/json"
                 ],
@@ -205,10 +1017,17 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Exercise"
+                    "WrongProblem"
                 ],
-                "summary": "习题列表筛选",
+                "summary": "错题列表筛选",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生id",
+                        "name": "Sid",
+                        "in": "query",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "科目",
@@ -259,7 +1078,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/Models.Exercise"
+                                                "$ref": "#/definitions/Models.WrongProblem"
                                             }
                                         }
                                     }
@@ -272,7 +1091,7 @@
         },
         "/app/exercise/insert_exercise": {
             "post": {
-                "description": "插入习题数据",
+                "description": "插入今日习题数据",
                 "consumes": [
                     "application/json"
                 ],
@@ -280,9 +1099,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Exercise"
+                    "Teacher"
                 ],
-                "summary": "插入习题",
+                "summary": "插入今日习题",
                 "parameters": [
                     {
                         "description": "习题数据",
@@ -386,6 +1205,30 @@
                 ]
             }
         },
+        "/app/file/get_pdf": {
+            "get": {
+                "description": "下载服务端文件夹中的pdf",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "获取pdf",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文件路径",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    }
+                ]
+            }
+        },
         "/app/file/upload_file": {
             "post": {
                 "description": "上传客户端发送的文件至本地服务器",
@@ -410,7 +1253,92 @@
                 ]
             }
         },
-        "/app/student/login": {
+        "/app/login/admin_login": {
+            "get": {
+                "description": "匹配管理员密码，若登录成功则返回管理员信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "管理员登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.Admin"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/login/register_student": {
+            "post": {
+                "description": "根据发送的学生信息注册新用户",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Student"
+                ],
+                "summary": "学生注册",
+                "parameters": [
+                    {
+                        "description": "学生信息",
+                        "name": "StudentData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Models.Student"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Insert() success!\",\"data\":100001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/login/student_login": {
             "get": {
                 "description": "匹配学生密码，若登录成功则返回学生信息",
                 "consumes": [
@@ -461,88 +1389,7 @@
                 }
             }
         },
-        "/app/student/register": {
-            "post": {
-                "description": "根据发送的学生信息注册新用户",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Student"
-                ],
-                "summary": "学生注册",
-                "parameters": [
-                    {
-                        "description": "学生信息",
-                        "name": "StudentData",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/Models.Student"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "code\":200,\"msg\":\"Insert() success!\",\"data\":100001}",
-                        "schema": {
-                            "$ref": "#/definitions/Controllers.Res"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/teacher/get_student_list": {
-            "get": {
-                "description": "获取监管校区内的学生信息列表",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Teacher"
-                ],
-                "summary": "获取学生信息列表",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "教师id",
-                        "name": "Tid",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/Controllers.Res"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/Models.Student"
-                                            }
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/teacher/login": {
+        "/app/login/teacher_login": {
             "get": {
                 "description": "匹配教师密码，若登录成功则返回教师信息",
                 "consumes": [
@@ -584,6 +1431,1088 @@
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/Models.Teacher"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/order/get_order_teacher": {
+            "get": {
+                "description": "获取某个预约家教信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderTeacher"
+                ],
+                "summary": "预约家教信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.OrderTeacher"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/order/get_order_teacher_list": {
+            "get": {
+                "description": "获取预约家教列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderTeacher"
+                ],
+                "summary": "预约家教列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.OrderTeacher"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/student/delete_student/:id": {
+            "delete": {
+                "description": "删除学生数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "删除学生",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生id",
+                        "name": "Sid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Delete() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/student/get_learn_situation_list": {
+            "get": {
+                "description": "学生获取监管校区内的学生学情列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Student"
+                ],
+                "summary": "学生获取学情列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/definitions/Models.LearnSituation"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/student/get_student_self": {
+            "get": {
+                "description": "获取自己的用户信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Student"
+                ],
+                "summary": "获取自己信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生id",
+                        "name": "Sid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.Student"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/student/insert_ask_question": {
+            "post": {
+                "description": "插入提问问题数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Student"
+                ],
+                "summary": "学生提问",
+                "parameters": [
+                    {
+                        "description": "预约教师数据",
+                        "name": "OTData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Models.AskQuestion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Insert() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/student/insert_order_teacher": {
+            "post": {
+                "description": "插入预约教师数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Student"
+                ],
+                "summary": "学生插入预约教师",
+                "parameters": [
+                    {
+                        "description": "预约教师数据",
+                        "name": "OTData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Models.OrderTeacher"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Insert() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/student/update_password": {
+            "put": {
+                "description": "编辑一个学生密码信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "编辑学生密码",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "cid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "cname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sgrade",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sgradeName",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sicon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "snickname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "soldPassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "spassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "spasswordAgain",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sphone",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Student"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/student/update_student": {
+            "post": {
+                "description": "编辑一个学生信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "编辑学生",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "cid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "cname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sgrade",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sgradeName",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sicon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "snickname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "soldPassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "spassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "spasswordAgain",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sphone",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Student"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/delete_learn_situation/:id": {
+            "delete": {
+                "description": "教师删除监管校区内的学生学情",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师删除学生学情",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/delete_teacher/:id": {
+            "delete": {
+                "description": "删除教师数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "删除教师",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "教师id",
+                        "name": "Tid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Delete() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/generate_exercise_pdf": {
+            "get": {
+                "description": "教师整理习题信息并转成pdf",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师整理习题信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/generate_wrong_problem_pdf": {
+            "get": {
+                "description": "教师整理错题信息并转成pdf",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师整理错题信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/get_ask_question": {
+            "get": {
+                "description": "教师获取监管校区内的学生提问信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师获取学生提问信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.AskQuestion"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/get_ask_question_list": {
+            "get": {
+                "description": "教师获取监管校区内的学生提问列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师获取学生提问列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.AskQuestion"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/get_learn_situation_list": {
+            "get": {
+                "description": "教师获取监管校区内的学生学情列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师获取学生学情列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/definitions/Models.LearnSituation"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/get_student": {
+            "get": {
+                "description": "教师获取监管校区内的一个学生信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师获取一个学生信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生id",
+                        "name": "Sid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.Student"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/get_student_list": {
+            "get": {
+                "description": "教师获取监管校区内的学生信息列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师获取学生信息列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Student"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/get_student_sorted_list": {
+            "get": {
+                "description": "教师获取监管校区内的学生信息列表（排序后）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师获取学生信息列表（排序后）",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Student"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/get_teacher": {
+            "get": {
+                "description": "获取一个教师信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "获取一个教师信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "教师id",
+                        "name": "Tid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Teacher"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/insert_learn_situation": {
+            "post": {
+                "description": "教师添加监管校区内的学生学情",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师添加学生学情",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/update_ask_question": {
+            "post": {
+                "description": "教师更改监管校区内的学生提问信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师更改学生提问信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.AskQuestion"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/update_learn_situation": {
+            "put": {
+                "description": "教师修改监管校区内的学生学情",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "教师修改学生学情",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/update_password": {
+            "put": {
+                "description": "编辑一个教师信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "编辑教师",
+                "parameters": [
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "name": "cnames",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ticon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "tid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tnickname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "toldPassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tpassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tpasswordAgain",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tphone",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Teacher"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/teacher/update_teacher": {
+            "post": {
+                "description": "编辑一个教师信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "编辑教师",
+                "parameters": [
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "name": "cnames",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ticon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "tid",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tnickname",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "toldPassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tpassword",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tpasswordAgain",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tphone",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Services.Teacher"
                                         }
                                     }
                                 }
@@ -652,7 +2581,442 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
+                                                "$ref": "#/definitions/Models.TodayExercise"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/today/judge_today_exercise": {
+            "get": {
+                "description": "学生提交今日习题，系统进行保存并自动判题",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TodayExercise"
+                ],
+                "summary": "判题(学生)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生id",
+                        "name": "Sid",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "题目id和学生答案",
+                        "name": "Answer",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.TodayExercise"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/common/search_exercise": {
+            "get": {
+                "description": "搜索匹配字符串显示习题列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "搜索习题信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
                                                 "$ref": "#/definitions/Models.Exercise"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/common/search_student_from_admin": {
+            "get": {
+                "description": "管理员搜索匹配字符串显示学生列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "管理员搜索学生信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Student"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/common/search_student_from_teacher": {
+            "get": {
+                "description": "教师搜索匹配字符串显示学生列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "教师搜索学生信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Student"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/common/search_teacher": {
+            "get": {
+                "description": "搜索匹配字符串显示教师列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "搜索教师信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.Teacher"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/common/search_wrong_problem": {
+            "get": {
+                "description": "搜索匹配字符串显示错题列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "搜索错题信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.WrongProblem"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/wrong_problem/delete_wrong_problem/:id": {
+            "delete": {
+                "description": "删除错题数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WrongProblem"
+                ],
+                "summary": "删除错题",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "错题id",
+                        "name": "Wid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Delete() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/wrong_problem/get_wrong_problem": {
+            "get": {
+                "description": "同过Wid查找错题",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WrongProblem"
+                ],
+                "summary": "查找错题",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "错题id",
+                        "name": "Wid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/Models.WrongProblem"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/wrong_problem/insert_wrong_problem": {
+            "post": {
+                "description": "插入错题数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WrongProblem"
+                ],
+                "summary": "插入错题",
+                "parameters": [
+                    {
+                        "description": "习题数据",
+                        "name": "WrongProblemData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Models.WrongProblem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Insert() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/wrong_problem/update_wrong_problem/:id": {
+            "put": {
+                "description": "更新错题数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WrongProblem"
+                ],
+                "summary": "更改错题",
+                "parameters": [
+                    {
+                        "description": "习题数据",
+                        "name": "WPData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Models.WrongProblem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\":200,\"msg\":\"Update() success!\",\"data\":500001}",
+                        "schema": {
+                            "$ref": "#/definitions/Controllers.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/wrongproblem/get_wrongproblem": {
+            "get": {
+                "description": "获取错题列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WrongProblem"
+                ],
+                "summary": "错题列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生id",
+                        "name": "Sid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Controllers.Res"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Models.WrongProblem"
                                             }
                                         }
                                     }
@@ -676,6 +3040,43 @@
                 },
                 "Msg": {
                     "type": "string"
+                }
+            }
+        },
+        "Models.Admin": {
+            "type": "object",
+            "properties": {
+                "aid": {
+                    "type": "integer"
+                },
+                "aname": {
+                    "type": "string"
+                },
+                "apassword": {
+                    "type": "string"
+                }
+            }
+        },
+        "Models.AskQuestion": {
+            "type": "object",
+            "properties": {
+                "aqid": {
+                    "type": "integer"
+                },
+                "aqisSolved": {
+                    "type": "integer"
+                },
+                "aqremark": {
+                    "type": "string"
+                },
+                "aqtime": {
+                    "type": "string"
+                },
+                "eid": {
+                    "type": "integer"
+                },
+                "sid": {
+                    "type": "integer"
                 }
             }
         },
@@ -731,17 +3132,78 @@
                 }
             }
         },
+        "Models.LearnSituation": {
+            "type": "object",
+            "properties": {
+                "lsattendence": {
+                    "type": "string"
+                },
+                "lsdate": {
+                    "type": "string"
+                },
+                "lsexam": {
+                    "type": "string"
+                },
+                "lsgrade": {
+                    "type": "string"
+                },
+                "lshomework": {
+                    "type": "string"
+                },
+                "lsid": {
+                    "type": "integer"
+                },
+                "lsperform": {
+                    "type": "string"
+                },
+                "lssubject": {
+                    "type": "string"
+                },
+                "sid": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Models.OrderTeacher": {
+            "type": "object",
+            "properties": {
+                "otaddress": {
+                    "type": "string"
+                },
+                "otcontactName": {
+                    "type": "string"
+                },
+                "otcontactPhone": {
+                    "type": "string"
+                },
+                "otcreateTime": {
+                    "type": "string"
+                },
+                "otid": {
+                    "type": "integer"
+                },
+                "otsubject": {
+                    "type": "string"
+                },
+                "ottimeSlot": {
+                    "type": "string"
+                },
+                "otweek": {
+                    "type": "string"
+                },
+                "sid": {
+                    "type": "integer"
+                }
+            }
+        },
         "Models.Student": {
             "type": "object",
             "properties": {
                 "cid": {
                     "type": "integer"
                 },
-                "cname": {
-                    "type": "string"
-                },
                 "sgrade": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "sicon": {
                     "type": "string"
@@ -786,6 +3248,82 @@
                 }
             }
         },
+        "Models.TodayExercise": {
+            "type": "object",
+            "properties": {
+                "eid": {
+                    "type": "integer"
+                },
+                "sid": {
+                    "type": "integer"
+                },
+                "teanswerPath": {
+                    "type": "string"
+                },
+                "teanswerTxt": {
+                    "type": "string"
+                },
+                "tedate": {
+                    "type": "string"
+                },
+                "teid": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Models.WrongProblem": {
+            "type": "object",
+            "properties": {
+                "sid": {
+                    "type": "integer"
+                },
+                "wanswerPath": {
+                    "type": "string"
+                },
+                "wanswerTxt": {
+                    "type": "string"
+                },
+                "wcreateTime": {
+                    "type": "string"
+                },
+                "wdescription": {
+                    "type": "string"
+                },
+                "wdifficulty": {
+                    "type": "string"
+                },
+                "wgrade": {
+                    "type": "string"
+                },
+                "wid": {
+                    "type": "integer"
+                },
+                "wmyAnswerPath": {
+                    "type": "string"
+                },
+                "wmyAnswerTxt": {
+                    "type": "string"
+                },
+                "wproblemPath": {
+                    "type": "string"
+                },
+                "wproblemTxt": {
+                    "type": "string"
+                },
+                "wsubject": {
+                    "type": "string"
+                },
+                "wtitle": {
+                    "type": "string"
+                },
+                "wtype": {
+                    "type": "string"
+                },
+                "wunit": {
+                    "type": "string"
+                }
+            }
+        },
         "Services.ExerciseField": {
             "type": "object",
             "properties": {
@@ -824,6 +3362,82 @@
                             "type": "string"
                         }
                     }
+                }
+            }
+        },
+        "Services.Student": {
+            "type": "object",
+            "properties": {
+                "cid": {
+                    "type": "integer"
+                },
+                "cname": {
+                    "type": "string"
+                },
+                "sgrade": {
+                    "type": "integer"
+                },
+                "sgradeName": {
+                    "type": "string"
+                },
+                "sicon": {
+                    "type": "string"
+                },
+                "sid": {
+                    "type": "integer"
+                },
+                "sname": {
+                    "type": "string"
+                },
+                "snickname": {
+                    "type": "string"
+                },
+                "soldPassword": {
+                    "type": "string"
+                },
+                "spassword": {
+                    "type": "string"
+                },
+                "spasswordAgain": {
+                    "type": "string"
+                },
+                "sphone": {
+                    "type": "string"
+                }
+            }
+        },
+        "Services.Teacher": {
+            "type": "object",
+            "properties": {
+                "cnames": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "ticon": {
+                    "type": "string"
+                },
+                "tid": {
+                    "type": "integer"
+                },
+                "tname": {
+                    "type": "string"
+                },
+                "tnickname": {
+                    "type": "string"
+                },
+                "toldPassword": {
+                    "type": "string"
+                },
+                "tpassword": {
+                    "type": "string"
+                },
+                "tpasswordAgain": {
+                    "type": "string"
+                },
+                "tphone": {
+                    "type": "string"
                 }
             }
         }

@@ -106,7 +106,7 @@ func StudentQueryFromAdmin(c *gin.Context) {
 // @Tags Admin
 // @Accept json
 // @Produce  json
-// @Param studentData formData Services.Student true "学生id"
+// @Param studentData formData Services.Student true "学生数据"
 // @Success 200 {object} Res{data=Services.Student}
 // @Router /app/admin/insert_student [POST]
 func StudentInsertFromAdmin(c *gin.Context) {
@@ -145,7 +145,7 @@ func StudentInsertFromAdmin(c *gin.Context) {
 // @Tags Admin
 // @Accept json
 // @Produce  json
-// @Param studentData formData Services.Student true
+// @Param studentData formData Services.Student true "学生数据"
 // @Success 200 {object} Res{data=Services.Student}
 // @Router /app/admin/update_student [POST]
 func StudentUpdateFromAdmin(c *gin.Context) {
@@ -314,7 +314,7 @@ func TeacherQueryFromAdmin(c *gin.Context) {
 // @Tags Admin
 // @Accept json
 // @Produce  json
-// @Param teacherData formData Services.Teacher true
+// @Param teacherData formData Services.Teacher true "教师数据"
 // @Success 200 {object} Res{data=Services.Teacher}
 // @Router /app/admin/insert_teacher [POST]
 func TeacherInsertFromAdmin(c *gin.Context) {
@@ -352,7 +352,7 @@ func TeacherInsertFromAdmin(c *gin.Context) {
 // @Tags Admin
 // @Accept json
 // @Produce  json
-// @Param teacherData formData Services.Teacher true
+// @Param teacherData formData Services.Teacher true  "教师数据"
 // @Success 200 {object} Res{data=Services.Teacher}
 // @Router /app/admin/update_teacher [POST]
 func TeacherUpdateFromAdmin(c *gin.Context) {
