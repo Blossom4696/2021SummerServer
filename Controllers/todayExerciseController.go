@@ -84,3 +84,19 @@ func JudgeTodayExercise(c *gin.Context) {
 		Data: result,
 	})
 }
+
+// @Summary 搜索习题历史记录
+// @Description 搜索习题历史记录
+// @Tags TodayExercise
+// @Accept json
+// @Produce  json
+// @Param Sid query string true "学生id"
+// @Param startDate query string true "开始时间"
+// @Param endDate query string true "结束时间"
+// @Success 200 {object}
+// @Router /app/today/search_exercise_history
+func SearchExerciseHistory(c *gin.Context) {
+	c.JSON(http.StatusOK, Res{
+		Data: "Hello",
+	})
+}

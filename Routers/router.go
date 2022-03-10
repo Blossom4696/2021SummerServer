@@ -94,6 +94,7 @@ func InitRouter() *gin.Engine {
 	v6 := router.Group("/app/today")
 	v6.GET("/get_today_exercise", Controllers.TodayExerciseQuery)
 	v6.GET("/judge_today_exercise", Controllers.JudgeTodayExercise)
+	v6.GET("/search_exercise_history", Controllers.SearchExerciseHistory)
 
 	// 登录路由组
 	v7 := router.Group("app/login")
